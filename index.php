@@ -4,8 +4,6 @@
  |
  | DATE:
  |     Jul. 31, 2016
-    
-    Git commit test 6/28/19 1:03
  
 -->
 <html>
