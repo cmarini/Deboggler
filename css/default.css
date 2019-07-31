@@ -99,10 +99,10 @@ body
     text-align: right;
     margin-bottom: .5em;
 }
-#searchTabSortWrap {
+.radioGroupWrap {
     margin-bottom: .5em;
 }
-#searchTabSort {
+.radioGroup {
     text-align: left;
     vertical-align: middle;
     display: inline-block;

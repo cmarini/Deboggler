@@ -41,16 +41,18 @@
             <button id="searchTab">Search Dictionary</button>
             <div id="searchWrap">
                 <div id="searchSettings">
-                    <div id="searchFiltersWrap">
-                        <div class="inputWrap">
-                            <label>Starts with:</label><input type="text" class="dictFilter start"/>
-                        </div>
-                        <div class="inputWrap">
-                            <label>Contains:</label><input type="text" class="dictFilter contain"/>
+                    <div class="inputWrap">
+                        <label>Search:</label><input type="text" id="dictSearchStr"/>
+                    </div>
+                    <div id="searchFiltersWrap" class="radioGroupWrap">Filter:
+                        <div id="searchTabFilter" class="radioGroup">
+                            <input type="radio" name="filter" value="starts" checked>Starts with
+                            <br>
+                            <input type="radio" name="filter" value="contains">Contains
                         </div>
                     </div>
-                    <div id="searchTabSortWrap">Sort:
-                        <div id="searchTabSort">
+                    <div id="searchTabSortWrap" class="radioGroupWrap">Sort:
+                        <div id="searchTabSort" class="radioGroup">
                             <input type="radio" name="sort" value="alphabetical" checked>Alphabetical
                             <br>
                             <input type="radio" name="sort" value="length">Length
@@ -166,6 +168,7 @@ $(document).ready(function() {
     
     $.ajax({
         url: "js/dict.js",
+        // url: "js/dict-short.js",
         dataType: "script",
         cache: true,
         success: function(result) {

@@ -2,6 +2,10 @@ function dictSearchSetup() {
 
     if (DEBUG) console.log("Running dict-search.js");
 
+    dictSearchStr = "";
+    dictSearchFilter = "";
+    dictSearchSort = "";
+
     $("#searchTab").bind("click", function () {
         if ($(this).hasClass("open")) {
             $(this).removeClass("open");
@@ -16,49 +20,62 @@ function dictSearchSetup() {
     });
 
     $("#numDictWords").text("Dictionary contains " + dict.length + " total words");
-    $(".dictFilter").bind("input", function () {
-        var chars = $(this).val().toLowerCase();
-        
-        fillWordList($("#dictSearch"), []);
-        $("#numDictWords").text("");
-        
+
+    $("#dictSearchStr").on("input", function () {
+        dictSearchStr = $(this).val().toLowerCase();
         var minSearchLen = 3;
-        $(".dictFilter").not(this).val("").removeClass("invalid");
-                
-        if (chars.length == 0) {
+        
+        if (dictSearchStr.length == 0) {
             $(this).removeClass("invalid");
             $("#dictSearch").removeClass("empty");
             $("#numDictWords").text("Contains " + dict.length + " total words");
             return;
         }
-        if (chars.length < minSearchLen) {
+        if (dictSearchStr.length < minSearchLen) {
+            dictSearchStr = "";
             $(this).addClass("invalid");
             $("#dictSearch").removeClass("empty");
             $("#numDictWords").text("Contains " + dict.length + " total words");
             return;
         }
-        
-        if ($(this).hasClass("start")) {
-            dict.filtered = dict.filter(function (w,i){
-                return (w.search(chars) == 0);
-            });
-        } else if ($(this).hasClass("contain")) {
-            dict.filtered = dict.filter(function (w,i){
-                return (w.search(chars) >= 0);
-            });
-        } else {
-            return;
-        }
-        
         $(this).removeClass("invalid");
 
-        if ($("#searchTabSort input:checked").val() == "length") {
-            sortByLen(dict.filtered);
-        } else {
-            dict.filtered.sort();
-        }
-        fillWordList($("#dictSearch"), dict.filtered);
-        $("#numDictWords").text(dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
+        dictQuery();
+    });
+    $("#searchTabSort input").on("change", function(e) {
+        dictQuery();
+    });
+    $("#searchTabFilter input").on("change", function(e) {
+        dictQuery();
     });
 
+    function dictQuery() {
+        fillWordList($("#dictSearch"), []);
+        $("#numDictWords").text("");
+        
+        /* Dictionary List Filtering */
+        if ($("#searchTabFilter input:checked").val() == "starts") {
+            console.log("Filter by starts");
+            dict.filtered = dict.filter(function (w,i){
+                return (w.search(dictSearchStr) == 0);
+            });
+        } else {
+            console.log("Filter by contains");
+            dict.filtered = dict.filter(function (w,i){
+                return (w.search(dictSearchStr) >= 0);
+            });
+        }
+
+        /* Dictionary List Sorting */
+        if ($("#searchTabSort input:checked").val() == "length") {
+            console.log("Sorting by length");
+            sortByLen(dict.filtered);
+        } else {
+            console.log("Sorting by alphabetical");
+            dict.filtered.sort();
+        }
+
+        fillWordList($("#dictSearch"), dict.filtered);
+        $("#numDictWords").text(dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
+    }
 };
