@@ -27,20 +27,15 @@
     
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <script type="text/javascript">
-        var DEBUG = false;
-    </script>
-    
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <!-- <script type="text/javascript" src="js/dict.js"></script> -->
-    <script type="text/javascript" src="js/deboggler.js"></script>
-    <script type="text/javascript" src="js/dice.js"></script>
-    
+        var DEBUG = true;
+    </script>    
 
 </head>
 <!-- 
 <body>
  -->
-<body onload="main();">
+<!-- <body onload="main();"> -->
+<body>
     <div id="settings">
         <div id="searchTabWrap">
             <button id="searchTab">Search Dictionary</button>
@@ -127,29 +122,17 @@
     echo "<br />";
     ?>
     </code>
-<script type="text/javascript">
-function main() 
-{
-    /* DICE INPUTS TABLE */
-    /*
-    var table = $("<table>");
-    for (var key in comboDice) {
-        var tr = $("<tr>");
-        tr.append($("<td>").html(key));
-        tr.append($("<td>").html(comboDice[key]));
-        table.append(tr);
-        console.log(key);
-    }
 
-    $("#comboDice").append($("<span>").text("Combo dice inputs"));
-    $("#comboDice").append(table);
-    */
+</body>
     
-    /* jQuery.fn.redraw = function() {
-        return this.hide(0, function() {
-            $(this).show();
-        });
-    }; */
+<script type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript" src="js/dict.js"></script> -->
+<script type="text/javascript" src="js/deboggler.js"></script>
+<script type="text/javascript" src="js/dice.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    if (DEBUG) console.log("Running main()");
     $('#resultsWrap').hide();
     $('#searchWrap').hide();
     if (DEBUG) $('#debug').show();
@@ -180,20 +163,6 @@ function main()
         $(this).addClass("outset");
         $(this).removeClass("inset");
     });
-
-    
-    $("#searchTab").bind("click", function () {
-        if ($(this).hasClass("open")) {
-            $(this).removeClass("open");
-            $('#searchWrap').hide(200);
-        } else {
-            $(this).addClass("open");
-            $(".dictFilter.start").val("").keyup();
-            $('#searchWrap').show(200);
-            $(".dictFilter.start").focus()
-        }
-            
-    });
     
     $.ajax({
         url: "js/dict.js",
@@ -202,7 +171,7 @@ function main()
         success: function(result) {
             $("#indexProgVal").text("Indexing Dictionary...");
             buildDict();
-            
+            dictSearchSetup();
             $("#indexProgWrap").fadeOut();
             $("#boardInput").focus();
         },
@@ -229,34 +198,15 @@ function main()
             };
             return xhr;
         },
-    /* }).done(function (e) {
-        $("#indexProgVal").text("Indexing Dictionary...");
-        buildDict();
-        
-        $("#indexProgWrap").fadeOut();
-        $("#boardInput").focus(); */
     }).fail(function (e) {
         console.log("DOWNLOAD FAILED");
     }).then(function(data, status, xhr) {
         console.log(xhr.getAllResponseHeaders());
-    })
-;
-    
-    /* 
-    $.getScript( "js/dict.js", function( data, textStatus, jqxhr ) {
-        // console.log( data ); // Data returned
-        console.log( textStatus ); // Success
-        console.log( jqxhr.status ); // 200
-        console.log( "js/dict.js was loaded." );
-    }); 
-    buildDict();
-    
-    $("#indexProgWrap").fadeOut();
-    $("#boardInput").focus();
-    */
-}
+    });
+});
 </script>
 
-</body>
+<script type="text/javascript" src="js/components/dict-search.js"></script>
+
 </html>
 

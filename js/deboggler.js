@@ -1,3 +1,5 @@
+if (DEBUG) console.log("Running deboggler.js");
+
 var boardSize;
 var charLimit = 15;
 var minCharLimit = 4;
@@ -61,64 +63,6 @@ function buildDict()
         $("#debug").append("Max Dictionary Segment Length: " + max + "</br>");
         $("#debug").append("Avg Dictionary Segment Length: " + Math.round(avg) + "</br>");
     }
-    
-    $("#numDictWords").text("Dictionary contains " + dict.length + " total words");
-    $(".dictFilter").bind("input", function () {
-        var chars = $(this).val().toLowerCase();
-        
-        fillWordList($("#dictSearch"), []);
-        $("#numDictWords").text("");
-        
-        var minSearchLen;
-        
-        if ($(this).hasClass("start")) {
-            minSearchLen = 3;
-            $(".dictFilter.contain").val("");
-            $(".dictFilter.contain").removeClass("invalid");
-        } else if ($(this).hasClass("contain")) {
-            minSearchLen = 3;
-            $(".dictFilter.start").val("");
-            $(".dictFilter.start").removeClass("invalid");
-        } else {
-            return;
-        }
-        
-        if (chars.length == 0) {
-            $(this).removeClass("invalid");
-            $("#dictSearch").removeClass("empty");
-            $("#numDictWords").text("Contains " + dict.length + " total words");
-            return;
-        }
-        if (chars.length < minSearchLen) {
-            $(this).addClass("invalid");
-            $("#dictSearch").removeClass("empty");
-            $("#numDictWords").text("Contains " + dict.length + " total words");
-            return;
-        }
-        
-        if ($(this).hasClass("start")) {
-            dict.filtered = dict.filter(function (w,i){
-                return (w.search(chars) == 0);
-            });
-        } else if ($(this).hasClass("contain")) {
-            dict.filtered = dict.filter(function (w,i){
-                return (w.search(chars) >= 0);
-            });
-        } else {
-            return;
-        }
-        
-        $(this).removeClass("invalid");
-
-        if ($("#searchTabSort input:checked").val() == "length") {
-            sortByLen(dict.filtered);
-        } else {
-            dict.filtered.sort();
-        }
-        fillWordList($("#dictSearch"), dict.filtered);
-        $("#numDictWords").text(dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
-        
-    });
 }
 
 function drawBoard()
