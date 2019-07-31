@@ -123,16 +123,24 @@ function buildDict()
 
 function drawBoard()
 {   
-    var str = "";
     for (var row=0; row<boardSize; row++) {
-        str += "<div class=dieRow>";
+        var dieRow = $("<div/>", {
+            'class': "dieRow",
+        });
         for (var col=0; col<boardSize; col++) {
-            str += "<div id=d_"+row+"_"+col+" class='die invalid' row="+row+" col="+col+">" + blankDie;
-            str += "</div>";
+            dieRow.append(
+                $("<div/>", {
+                    'id': "d_"+row+"_"+col,
+                    'class': 'die invalid',
+                    'row': row,
+                    'col': col,
+                    // 'tabindex': 0,
+                    // 'contenteditable': 'true',
+                })
+            );
         }
-        str += "</div>";
+        $("#board").append(dieRow);
     }
-    $("#board").html(str);
     
     $('#resultsWrap').slideUp();
     $("#solveButton").hide();
