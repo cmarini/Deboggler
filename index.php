@@ -11,6 +11,17 @@
     <title>deBoggler</title>
     
     <?php $p = dirname($_SERVER['SCRIPT_NAME']); ?>
+    <script type="text/javascript">
+        var DEBUG_useShortDict = false;
+        <?php 
+        $GIT_BRANCH = implode('/', array_slice(explode('/', file_get_contents('.git/HEAD')), 2));
+        if (strtolower(trim($GIT_BRANCH)) == "dev") {
+            echo "var DEBUG = true;";
+        } else {
+            echo "var DEBUG = false;";
+        }
+        ?>
+    </script>    
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $p ?>/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $p ?>/favicon-32x32.png">
@@ -26,15 +37,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="css/default.css">
-    <script type="text/javascript">
-        var DEBUG = true;
-    </script>    
 
 </head>
-<!-- 
-<body>
- -->
-<!-- <body onload="main();"> -->
 <body>
     <div id="settings">
         <div id="searchTabWrap">
@@ -120,7 +124,11 @@
     <code id="debug" style="display: none;">
     <?php
     echo "<br />";
-    echo "Deboggler Version: ".date("m/d/y H:i:s.",filemtime("js/deboggler.js"));
+    echo "Deboggler Version: ".date("m/d/y H:i:s",filemtime("js/deboggler.js"));
+    echo "<br />";
+    ?>
+    <?php 
+    echo "Branch: ".$GIT_BRANCH;
     echo "<br />";
     ?>
     </code>
@@ -165,9 +173,10 @@ $(document).ready(function() {
         $(this).addClass("outset");
         $(this).removeClass("inset");
     });
-    
+    var dictFile = "js/dict.js";
+    if (DEBUG && DEBUG_useShortDict) dictFile = "js/dict-short.js";
     $.ajax({
-        url: "js/dict.js",
+        url: dictFile,
         // url: "js/dict-short.js",
         dataType: "script",
         cache: true,

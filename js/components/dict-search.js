@@ -1,7 +1,16 @@
+function delay(fn, ms) {
+    let timer = 0
+    return function(...args) {
+      clearTimeout(timer)
+      timer = setTimeout(fn.bind(this, ...args), ms || 0)
+    }
+}
+
 function dictSearchSetup() {
 
     if (DEBUG) console.log("Running dict-search.js");
 
+    var minSearchLen = 3;
     dictSearchStr = "";
     dictSearchFilter = "";
     dictSearchSort = "";
@@ -21,27 +30,24 @@ function dictSearchSetup() {
 
     $("#numDictWords").text("Dictionary contains " + dict.length + " total words");
 
-    $("#dictSearchStr").on("input", function () {
+    $("#dictSearchStr").on("input", delay(function () {
         dictSearchStr = $(this).val().toLowerCase();
-        var minSearchLen = 3;
         
         if (dictSearchStr.length == 0) {
             $(this).removeClass("invalid");
             $("#dictSearch").removeClass("empty");
-            $("#numDictWords").text("Contains " + dict.length + " total words");
-            return;
+            // return;
         }
         if (dictSearchStr.length < minSearchLen) {
             dictSearchStr = "";
             $(this).addClass("invalid");
             $("#dictSearch").removeClass("empty");
-            $("#numDictWords").text("Contains " + dict.length + " total words");
-            return;
+        } else {
+            $(this).removeClass("invalid");
         }
-        $(this).removeClass("invalid");
 
         dictQuery();
-    });
+    }, 100));
     $("#searchTabSort input").on("change", function(e) {
         dictQuery();
     });
@@ -50,32 +56,41 @@ function dictSearchSetup() {
     });
 
     function dictQuery() {
-        fillWordList($("#dictSearch"), []);
-        $("#numDictWords").text("");
-        
-        /* Dictionary List Filtering */
-        if ($("#searchTabFilter input:checked").val() == "starts") {
-            console.log("Filter by starts");
-            dict.filtered = dict.filter(function (w,i){
-                return (w.search(dictSearchStr) == 0);
-            });
-        } else {
-            console.log("Filter by contains");
-            dict.filtered = dict.filter(function (w,i){
-                return (w.search(dictSearchStr) >= 0);
-            });
-        }
+        $("#numDictWords").text("Searching...");
+        setTimeout(function() {
+            $("#numDictWords").text("Contains " + dict.length + " total words");
+            if (dictSearchStr.length < minSearchLen) {
+                fillWordList($("#dictSearch"), []);
+                return;
+            }
+            
+            /* Dictionary List Filtering */
+            if ($("#searchTabFilter input:checked").val() == "starts") {
+                console.log("Filter by starts");
+                dict.filtered = dict.filter(function (w,i){
+                    return (w.search(dictSearchStr) == 0);
+                });
+            } else {
+                console.log("Filter by contains");
+                console.time("dict.filter contains");
+                dict.filtered = dict.filter(function (w,i){
+                    return (w.search(dictSearchStr) >= 0);
+                });
+                console.timeEnd("dict.filter contains");
+            }
 
-        /* Dictionary List Sorting */
-        if ($("#searchTabSort input:checked").val() == "length") {
-            console.log("Sorting by length");
-            sortByLen(dict.filtered);
-        } else {
-            console.log("Sorting by alphabetical");
-            dict.filtered.sort();
-        }
+            /* Dictionary List Sorting */
+            if ($("#searchTabSort input:checked").val() == "length") {
+                console.log("Sorting by length");
+                sortByLen(dict.filtered);
+            } else {
+                console.log("Sorting by alphabetical");
+                dict.filtered.sort();
+            }
 
-        fillWordList($("#dictSearch"), dict.filtered);
-        $("#numDictWords").text(dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
+            fillWordList($("#dictSearch"), dict.filtered);
+            $("#numDictWords").text("Found " + dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
+            
+        }, 1);
     }
 };

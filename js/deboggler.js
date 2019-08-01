@@ -67,6 +67,7 @@ function buildDict()
 
 function drawBoard()
 {   
+    $("#board").empty();
     for (var row=0; row<boardSize; row++) {
         var dieRow = $("<div/>", {
             'class': "dieRow",
@@ -332,24 +333,25 @@ function copyList(e)
 function fillWordList(container, words)
 {
     if (!$(container).hasClass("resultsListContainer")) {
+        console.error("Not a valid container!", container);
         return;
     }
     
     var listDiv = $(container).children(".resultsList");
-    listDiv.html("");
     
+    console.time("fillWordList() > html(\"\")");
+    listDiv.html("");
+    console.timeEnd("fillWordList() > html(\"\")");
+
     if (words.length == 0) {
         $(container).addClass("empty");
         return;
     }
     $(container).removeClass("empty");
     
-    words.forEach(function (w, i){
-         listDiv.append(""+w+"</br>");
-    });
-    
-    // listDiv.find(".resultWord").first().addClass("first");
-    // listDiv.find(".resultWord").last().addClass("last");
+    console.time("fillWordList() > js join");
+    listDiv.append(words.join("</br>"));
+    console.timeEnd("fillWordList() > js join");
 }
 
 function showResultWords(words)

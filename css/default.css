@@ -108,10 +108,10 @@ body
     display: inline-block;
 }
 
-.dictFilter {
+#dictSearchStr {
     margin: 1px;
 }
-.dictFilter.invalid {
+#dictSearchStr.invalid {
     background: rgba(255, 255, 0, 0.5);
 }
 
@@ -311,9 +311,11 @@ body
     line-height: 1.4em;
 }
 
+/*
 .resultsListContainer.empty
 {
 }
+*/
 .resultsListContainer.empty .resultsList
 {
     /* border-color: transparent; */
@@ -331,18 +333,20 @@ body
     display: block;
 }
 
+/*
 .resultWord.first
 {
-    /* border-top: 5px solid lightblue; */
-    /* border-top-left-radius: 1em; */
-    /* padding-top: 0.5em; */
+    border-top: 5px solid lightblue;
+    border-top-left-radius: 1em;
+    padding-top: 0.5em;
 }
 .resultWord.last
 {
-    /* border-bottom: 5px solid lightblue; */
-    /* border-bottom-left-radius: 1em; */
-    /* padding-bottom: 5px; */
+    border-bottom: 5px solid lightblue;
+    border-bottom-left-radius: 1em;
+    padding-bottom: 5px;
 }
+*/
 
 .outset
 {
