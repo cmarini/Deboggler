@@ -23,7 +23,7 @@ function dictSearchSetup() {
             $(this).addClass("open");
             $(".dictFilter.start").val("").keyup();
             $('#searchWrap').show(200);
-            $(".dictFilter.start").focus()
+            $("#dictSearchStr").focus()
         }
             
     });
@@ -47,7 +47,7 @@ function dictSearchSetup() {
         }
 
         dictQuery();
-    }, 100));
+    }, 250));
     $("#searchTabSort input").on("change", function(e) {
         dictQuery();
     });
@@ -91,6 +91,6 @@ function dictSearchSetup() {
             fillWordList($("#dictSearch"), dict.filtered);
             $("#numDictWords").text("Found " + dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
             
-        }, 1);
+        }, 4);
     }
 };
