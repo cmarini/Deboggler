@@ -29,6 +29,7 @@ class Dictionary {
 }
 
 var DICT;
+var dict = [];
 
 function buildDict()
 {
@@ -38,28 +39,30 @@ function buildDict()
     letterRegex = new RegExp("^[a-z" + comboCaps + "]$");
     
 
-    $("#indexProgVal").text("Indexing Dictionary...");
-    dict.sort();
-    dict.forEach(function (word, i) {
-        charLimit = word.length>charLimit?word.length:charLimit;
-    });
-    console.log(`Longest word is ${charLimit} characters`);
+    // $("#indexProgVal").text("Indexing Dictionary...");
+    // dict.sort();
+    // dict.forEach(function (word, i) {
+    //     charLimit = word.length>charLimit?word.length:charLimit;
+    // });
+    // console.log(`Longest word is ${charLimit} characters`);
 
     DICT = new Dictionary("Binary Search String", 
         function() {
+            var d;
             console.time("Build Dict: Binary Search String ");
-            // Initialize first letter
-            var d = {};
-            for (var i = 10; i<36; i++) {
-                d[i.toString(36)] = [];
-            }
-            var radix;
-            dict.forEach(function (word, i) {
-                radix = word.length-1;
-                if(word.length >= minCharLimit) {
-                    d[word.substr(0,1)][radix] = d[word.substr(0,1)][radix] || "";
-                    d[word.substr(0,1)][radix] += word.substring(1);
-                }
+            $.ajax({
+                url: "php/buildDict.php",
+                dataType: "JSON",
+                cache: false,
+                success: function(result) {
+                    console.log(result);
+                    DICT.dict = result;
+                    $('#debug').append("DONE DOWNLOADING DICTIONARY");
+                },
+            }).fail(function (e) {
+                console.log("DOWNLOAD FAILED");
+            }).then(function(data, status, xhr) {
+                console.log(xhr.getAllResponseHeaders());
             });
             console.timeEnd("Build Dict: Binary Search String ");
             return d;

@@ -173,48 +173,10 @@ $(document).ready(function() {
         $(this).addClass("outset");
         $(this).removeClass("inset");
     });
-    var dictFile = "js/dict.js";
-    if (DEBUG && DEBUG_useShortDict) dictFile = "js/dict-short.js";
-    $.ajax({
-        url: dictFile,
-        // url: "js/dict-short.js",
-        dataType: "script",
-        cache: true,
-        success: function(result) {
-            $("#indexProgVal").text("Indexing Dictionary...");
-            buildDict();
-            dictSearchSetup();
-            $("#indexProgWrap").fadeOut();
-            $("#boardInput").focus();
-        },
-        // cache: true,
-        xhr: function () {
-            var xhr = $.ajaxSettings.xhr();
-            // xhr.onprogress = function (e) {
-            xhr.addEventListener("progress", function (e) {
-                // For downloads
-                if (e.lengthComputable) {
-                    // console.log(e.loaded / e.total);
-                    $("#indexProgVal").text("Downloading dictionary data..." + e.loaded + " / " + e.total);
-                } else if(e.loaded) {
-                    $("#indexProgVal").html("Downloading dictionary data...<br>" + e.loaded + "b");
-                } else {
-                    $("#indexProgVal").text("Downloading dictionary data...");
-                }
-            }, false);
-            xhr.upload.onprogress = function (e) {
-                // For uploads
-                if (e.lengthComputable) {
-                    console.log(e.loaded / e.total);
-                }
-            };
-            return xhr;
-        },
-    }).fail(function (e) {
-        console.log("DOWNLOAD FAILED");
-    }).then(function(data, status, xhr) {
-        console.log(xhr.getAllResponseHeaders());
-    });
+    buildDict();
+    dictSearchSetup();
+    $("#indexProgWrap").fadeOut();
+    $("#boardInput").focus();
 });
 </script>
 
