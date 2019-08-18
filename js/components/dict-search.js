@@ -63,34 +63,36 @@ function dictSearchSetup() {
                 fillWordList($("#dictSearch"), []);
                 return;
             }
-            
+            console.time("DICTIONARY FILTERING");
             /* Dictionary List Filtering */
             if ($("#searchTabFilter input:checked").val() == "starts") {
                 console.log("Filter by starts");
+                console.time("-- dict.filter starts");
                 dict.filtered = dict.filter(function (w,i){
                     return (w.search(dictSearchStr) == 0);
                 });
+                console.timeEnd("-- dict.filter starts");
             } else {
                 console.log("Filter by contains");
-                console.time("dict.filter contains");
+                console.time("-- dict.filter contains");
                 dict.filtered = dict.filter(function (w,i){
                     return (w.search(dictSearchStr) >= 0);
                 });
-                console.timeEnd("dict.filter contains");
+                console.timeEnd("-- dict.filter contains");
             }
 
             /* Dictionary List Sorting */
             if ($("#searchTabSort input:checked").val() == "length") {
-                console.log("Sorting by length");
+                console.log("Sort by length");
                 sortByLen(dict.filtered);
             } else {
-                console.log("Sorting by alphabetical");
+                console.log("Sort by alphabetical");
                 dict.filtered.sort();
             }
 
             fillWordList($("#dictSearch"), dict.filtered);
             $("#numDictWords").text("Found " + dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
-            
+            console.timeEnd("DICTIONARY FILTERING");
         }, 4);
     }
 };

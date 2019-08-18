@@ -1,10 +1,10 @@
 if (DEBUG) console.log("Running deboggler.js");
 
+var dIndex = {}; // Indexed version of the dictionary
 var boardSize;
 var charLimit = 15;
 var minCharLimit = 4;
 var validWords;
-var dictKeys;
 
 var blankDie = '\xa0'; // &nbsp
 
@@ -19,6 +19,17 @@ var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 var comboCaps = "";
 var letterRegex = "";
 
+class Dictionary {
+    constructor(name, dictGenerator, func_canBeWord, func_isWord) {
+        this.name = name;
+        this.dict = dictGenerator();
+        this.canBeWord = func_canBeWord;
+        this.isWord = func_isWord;
+    }
+}
+
+var DICT;
+
 function buildDict()
 {
     comboCaps = Object.keys(comboDice).join("");
@@ -26,43 +37,89 @@ function buildDict()
     
     letterRegex = new RegExp("^[a-z" + comboCaps + "]$");
     
-    dictKeys = new Array();
 
     $("#indexProgVal").text("Indexing Dictionary...");
     dict.sort();
     dict.forEach(function (word, i) {
-        if (i%100 == 0) {
-            $("#indexProgVal").text((i) + " / " + dict.length + " (" +  Math.round(i*100/dict.length) + "%)");
-            // $("#indexProgVal").redraw();
-            // $("#indexProgWrap").css("height", Math.round(i*100/dict.length) + "%");
-            // $("#indexProgVal").toggleClass("force-redraw");
-            // $("#indexProgWrap").toggleClass("force-redraw");
-            // $("#indexProgWrap").redraw();
-        }
-        var letters = word.substring(0,minCharLimit);
-        if (letters.length >= minCharLimit) {
-            if (!dict.hasOwnProperty(letters)) {
-                dict[letters] = [];
-            }
-            dict[letters].push(word);
-            if (DEBUG) dictKeys.push(letters);
-        }
+        charLimit = word.length>charLimit?word.length:charLimit;
     });
-    if (DEBUG) {
-        
-        dictKeys = removeDup(dictKeys);
-        var max = 0;
-        var avg = 0;
-        var i;
-        for (i in dictKeys) {
-            var l = dict[dictKeys[i]].length;
-            max = l>max ? l : max;
-            avg += l;
+    console.log(`Longest word is ${charLimit} characters`);
+
+    DICT = new Dictionary("Binary Search String", 
+        function() {
+            console.time("Build Dict: Binary Search String ");
+            // Initialize first letter
+            var d = {};
+            for (var i = 10; i<36; i++) {
+                d[i.toString(36)] = [];
+            }
+            var radix;
+            dict.forEach(function (word, i) {
+                radix = word.length-1;
+                if(word.length >= minCharLimit) {
+                    d[word.substr(0,1)][radix] = d[word.substr(0,1)][radix] || "";
+                    d[word.substr(0,1)][radix] += word.substring(1);
+                }
+            });
+            console.timeEnd("Build Dict: Binary Search String ");
+            return d;
+        }, 
+        function(word) {
+            var suffix = word.substring(1);
+            var radix = suffix.length;
+            var dictSlice = this.dict[word.substring(0,1)];
+            var keys = Object.keys(dictSlice);
+            var dictStr;
+            for (radix; radix <= keys[keys.length-1]; radix++) {
+                if (!dictSlice.hasOwnProperty(radix)) {
+                    continue;
+                }
+                dictStr = dictSlice[radix];
+                var l = 0;
+                var m;
+                var h = dictStr.length/radix - 1;
+                while (l <= h) {
+                    m = Math.floor((l + h) / 2);
+                    var str = dictStr.substr(m*radix, radix).substring(0,suffix.length);
+                    if (suffix > str) {
+                        l = m + 1;
+                    }
+                    else if (suffix < str) {
+                        h = m - 1;
+                    }
+                    else {
+                        return word.substring(0,1) + str;
+                    }
+                }
+            }
+            return false;
+        },
+        function (word) {
+            var suffix = word.substring(1);
+            var radix = word.length-1;
+            var dictStr = this.dict[word.substr(0,1)][radix];
+            if (!dictStr) {
+                return false;
+            }
+            var l = 0;
+            var m;
+            var h = dictStr.length/radix - 1;
+            while (l <= h) {
+                m = Math.floor((l + h) / 2);
+                var str = dictStr.substr(m*radix, radix);
+                if (suffix > str) {
+                    l = m + 1;
+                }
+                else if (suffix < str) {
+                    h = m - 1;
+                }
+                else {
+                    return word.substring(0,1) + str;
+                }
+            }
+            return false;
         }
-        avg /= i;
-        $("#debug").append("Max Dictionary Segment Length: " + max + "</br>");
-        $("#debug").append("Avg Dictionary Segment Length: " + Math.round(avg) + "</br>");
-    }
+    );
 }
 
 function drawBoard()
@@ -235,14 +292,6 @@ function validateBoard()
     });
 }
 
-function createUsedMemo()
-{
-    var memo = new Array();
-    for (var row=0; row<boardSize; row++) {
-        memo[row] = new Array();
-    }
-    return memo;
-}
 
 function getBoard()
 {
@@ -275,14 +324,20 @@ function solve()
     clearResults();
     getBoard();
     
+    console.log("-- SOLVING BOARD");
+    console.time("-- SOLVING BOARD");
     validWords = new Array();
     
-    var memo = createUsedMemo();
+    var memo = new Array();
+    for (var row=0; row<boardSize; row++) {
+        memo[row] = new Array();
+    }
     for (var row=0; row<boardSize; row++) {
         for (var col=0; col<boardSize; col++) {
             solveRecurse("", row, col, memo);
         }
     }
+    console.timeEnd("-- SOLVING BOARD");
     
     validWords = removeDup(validWords);
     
@@ -368,11 +423,13 @@ function solveRecurse(word, row, col, memo)
     
     word += board[row][col];
     memo[row][col] = true;
-    if (word.length >= minCharLimit) {
-        if (canBeWord(word))
+    if (word.length >= 2) {
+        if (DICT.canBeWord(word))
         {
-            if (isWord(word)) {
-                validWords.push(word);
+            if (word.length >= minCharLimit) {
+                if (DICT.isWord(word)) {
+                    validWords.push(word);
+                }
             }
         } 
         else
@@ -397,27 +454,6 @@ function solveRecurse(word, row, col, memo)
     }
     memo[row][col] = false;
 }
-
-function canBeWord(word)
-{
-    if (word.length >= minCharLimit) {
-        if (dict.hasOwnProperty(word.substring(0,minCharLimit))) {
-            return (dict[word.substring(0,minCharLimit)].filter(function (x){
-                return !x.search(word);
-            }).length);
-        }
-        return 0;
-    }
-    return 1;
-}
-
-function isWord(word)
-{
-    return !!(dict[word.substring(0,minCharLimit)].filter(function (x){
-        return x==word;
-    }).length);
-}
-
 
 function randomFill()
 {
