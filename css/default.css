@@ -35,6 +35,41 @@
     .col-12 {width: 100%;}
 }
 
+
+#dict-loading-tab {
+    font-size: 2em;
+    position: absolute;
+    bottom: 0px;
+    left: 5%;
+    width: 90%;
+    text-align: center;
+    z-index: 100;
+    overflow-y: hidden;
+}
+
+#dict-loading-tab-slider {
+    position: relative;
+    bottom: 0px;
+}
+
+#dict-loading-tab-wrap {
+    display: inline-block;
+    background: lightblue;
+    border-radius: .5em .5em 0 0;
+    padding: .25em 1em;
+    box-shadow: 0px 0px 5px 0px #000000;
+    margin: 5px 5px 0 5px;
+}
+
+    
+@media only screen and (max-width: 768px) {
+    #dict-loading-tab {
+        font-size: 1.5em;
+        /* left: 5%; */
+        /* width: 90%; */
+    }
+}
+
 .row::after {
     content: "";
     clear: both;
@@ -55,6 +90,8 @@ body
     position: relative;
 }
 #searchTabWrap {
+    display: none;
+
     /* position: absolute; */
     left: 0px;
     top: 0px;

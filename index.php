@@ -21,6 +21,7 @@
             echo "var DEBUG = false;";
         }
         ?>
+        DEBUG = false;
     </script>    
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $p ?>/apple-touch-icon.png">
@@ -37,9 +38,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link rel="stylesheet" type="text/css" href="css/loader.css">
 
 </head>
 <body>
+<div id="dict-loading-tab">
+    <div id="dict-loading-tab-slider">
+        <div id="dict-loading-tab-wrap">
+            Loading Dictionary
+            <div class="loader">
+            <div class="duo duo1">
+                <div class="dot dot-a"></div>
+                <div class="dot dot-b"></div>
+            </div>
+            <div class="duo duo2">
+                <div class="dot dot-a"></div>
+                <div class="dot dot-b"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div id="settings">
         <div id="searchTabWrap">
             <button id="searchTab">Search Dictionary</button>
@@ -116,11 +135,13 @@
         </div>
         
     </div>
+<!-- 
     <div id="indexProgWrap">
         <div id="indexProg">
             <div id="indexProgVal" class="">Getting Dictionary...</div>
         </div>
     </div>
+-->
     <code id="debug" style="display: none;">
     <?php
     echo "<br />";
@@ -175,7 +196,7 @@ $(document).ready(function() {
     });
     buildDict();
     dictSearchSetup();
-    $("#indexProgWrap").fadeOut();
+    // $("#indexProgWrap").fadeOut();
     $("#boardInput").focus();
 });
 </script>

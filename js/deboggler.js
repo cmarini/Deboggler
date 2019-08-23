@@ -31,6 +31,18 @@ class Dictionary {
 var DICT;
 var dict = [];
 
+function hideLoadingTab() {
+    $("#dict-loading-tab-slider").animate(
+        {
+            bottom: "-" + ($("#dict-loading-tab").height() + 20),
+        },
+        {
+            duration: "slow",
+            complete: function(){$("#dict-loading-tab").hide()},
+        }
+    );
+}
+
 function buildDict()
 {
     comboCaps = Object.keys(comboDice).join("");
@@ -58,6 +70,7 @@ function buildDict()
                     console.log(result);
                     DICT.dict = result;
                     $('#debug').append("DONE DOWNLOADING DICTIONARY");
+                    hideLoadingTab();
                 },
             }).fail(function (e) {
                 console.log("DOWNLOAD FAILED");
