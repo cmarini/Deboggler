@@ -195,7 +195,7 @@ $(document).ready(function() {
         $(this).removeClass("inset");
     });
     buildDict();
-    dictSearchSetup();
+    // dictSearchSetup();
     // $("#indexProgWrap").fadeOut();
     $("#boardInput").focus();
 });

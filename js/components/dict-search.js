@@ -15,6 +15,8 @@ function dictSearchSetup() {
     dictSearchFilter = "";
     dictSearchSort = "";
 
+    $("#searchTabWrap").show();
+
     $("#searchTab").bind("click", function () {
         if ($(this).hasClass("open")) {
             $(this).removeClass("open");
@@ -28,7 +30,7 @@ function dictSearchSetup() {
             
     });
 
-    $("#numDictWords").text("Dictionary contains " + dict.length + " total words");
+    $("#numDictWords").text(`Dictionary contains ${DICT.wordCount} total words`);
 
     $("#dictSearchStr").on("input", delay(function () {
         dictSearchStr = $(this).val().toLowerCase();
@@ -58,7 +60,7 @@ function dictSearchSetup() {
     function dictQuery() {
         $("#numDictWords").text("Searching...");
         setTimeout(function() {
-            $("#numDictWords").text("Contains " + dict.length + " total words");
+            $("#numDictWords").text(`Contains ${DICT.wordCount} total words`);
             if (dictSearchStr.length < minSearchLen) {
                 fillWordList($("#dictSearch"), []);
                 return;
@@ -67,31 +69,27 @@ function dictSearchSetup() {
             /* Dictionary List Filtering */
             if ($("#searchTabFilter input:checked").val() == "starts") {
                 console.log("Filter by starts");
-                console.time("-- dict.filter starts");
-                dict.filtered = dict.filter(function (w,i){
-                    return (w.search(dictSearchStr) == 0);
-                });
-                console.timeEnd("-- dict.filter starts");
+                console.time("-- DICT.searchStarts");
+                dictFiltered = DICT.searchStarts(dictSearchStr)
+                console.timeEnd("-- DICT.searchStarts");
             } else {
                 console.log("Filter by contains");
-                console.time("-- dict.filter contains");
-                dict.filtered = dict.filter(function (w,i){
-                    return (w.search(dictSearchStr) >= 0);
-                });
-                console.timeEnd("-- dict.filter contains");
+                console.time("-- DICT.searchContains");
+                dictFiltered = DICT.searchContains(dictSearchStr);
+                console.timeEnd("-- DICT.searchContains");
             }
 
             /* Dictionary List Sorting */
             if ($("#searchTabSort input:checked").val() == "length") {
                 console.log("Sort by length");
-                sortByLen(dict.filtered);
+                sortByLen(dictFiltered);
             } else {
                 console.log("Sort by alphabetical");
-                dict.filtered.sort();
+                dictFiltered.sort();
             }
 
-            fillWordList($("#dictSearch"), dict.filtered);
-            $("#numDictWords").text("Found " + dict.filtered.length + " word" + (dict.filtered.length==1?"":"s"));
+            fillWordList($("#dictSearch"), dictFiltered);
+            $("#numDictWords").text("Found " + dictFiltered.length + " word" + (dictFiltered.length==1?"":"s"));
             console.timeEnd("DICTIONARY FILTERING");
         }, 4);
     }
