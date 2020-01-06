@@ -13,9 +13,6 @@ var board;
 var boardChanged = true;
 var lastBoard = "";
 
-var alphabetStart = 65;
-var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
 var comboCaps = "";
 var letterRegex = "";
 
@@ -492,8 +489,7 @@ function randomFill()
         for (var row=0; row<boardSize; row++) {
             for (var col=0; col<boardSize; col++) {
                 var idx = Math.floor(Math.random()*26);
-                // validateDie(row, col, alphabet[idx]);
-                boardString = boardString + alphabet[idx];
+                boardString = boardString + 'abcdefghijklmnopqrstuvwxyz'.charAt(idx);
             }
         }
     }
