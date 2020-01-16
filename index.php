@@ -105,6 +105,7 @@
         </div>
     </div>
     <input type="text" id="boardInput" pattern="[a-zQ]+">
+    <div id="react-boggle-board"></div>
     <div id="playArea" class="row">
         <div id="boardWrap" class="col">
             <div id="board"></div>
@@ -181,7 +182,7 @@ $(document).ready(function() {
         forEle.text(val).next().text("x"+val);
         if (val != boardSize) {
             boardSize = val;
-            drawBoard();
+            //drawBoard();
         }
     });
     $('.arrowBox.up').click();
@@ -202,6 +203,14 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript" src="js/components/dict-search.js"></script>
+
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="js/boggle_board.js"></script>
 
 </html>
 

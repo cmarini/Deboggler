@@ -162,7 +162,7 @@ function drawBoard()
     
     $('#resultsWrap').slideUp();
     $("#solveButton").hide();
-
+    
     $('#boardInput').off('input change keydown click focus');
     $('#boardInput').on('input change keydown click focus', function (e) {
         console.log(e.type + ": " + $(this).val());
