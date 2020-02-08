@@ -210,7 +210,8 @@ $(document).ready(function() {
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
 <!-- Load our React component. -->
-<script src="js/boggle_board.js"></script>
+<script src="js/boggle_die.js" type="module"></script>
+<script src="js/boggle_board.js" type="module"></script>
 
 </html>
 
