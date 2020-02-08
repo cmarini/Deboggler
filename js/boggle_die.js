@@ -1,6 +1,7 @@
 'use strict';
 
 const e = React.createElement;
+const dieRegex = new RegExp("[a-zA-Z]" + comboCaps + "]", 'g');
 
 export default class Die extends React.Component {
     constructor(props) {
@@ -20,17 +21,20 @@ export default class Die extends React.Component {
 
     handleChange(event) {
         let str = event.target.value;
-        let curLen = this.state.value.length;
+        let cur = this.state.value;
         let next = 1;
-        if (str.length > curLen) {
-            if (str.substring(0,curLen) === this.state.value.substring(0,curLen)) {
-                str = str.substring(curLen);
+        if (str.length > cur.length) {
+            if (str.substr(0,cur.length) === cur) {
+                str = str.substr(cur.length);
             }
         }
         else {
             next = -1;
         }
-        let char = str.substring(0, 1);
+        let char = toComboDie(str);
+        if (char.length == 0) {
+            next = 0;
+        }
 
         this.validateDie(char, next);
     }

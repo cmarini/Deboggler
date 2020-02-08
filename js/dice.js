@@ -1,12 +1,23 @@
 var comboDice = {
-    "Q": "qu",
-    "I": "in",
-    "T": "th",
-    "E": "er",
-    "H": "he",
-    "A": "an",
+    "Q": "Qu",
+    "I": "In",
+    "T": "Th",
+    "E": "Er",
+    "H": "He",
+    "A": "An",
 };
 
+const dieRegex = new RegExp("[a-zA-Z]", 'g');
+function toComboDie (string) {
+	let char = string.substr(0,1);
+	if (!char.match(dieRegex)) {
+		return "";
+	}
+	if (comboDice[char]) {
+		return comboDice[char];
+	}
+	return char.toLowerCase();
+}
 
 var diceVersions = [
 {

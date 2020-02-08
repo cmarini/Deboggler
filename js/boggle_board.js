@@ -1,5 +1,7 @@
 'use strict';
+
 import Die from './boggle_die.js';
+
 const e = React.createElement;
 
 class Board extends React.Component {
