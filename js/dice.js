@@ -7,7 +7,12 @@ var comboDice = {
     "A": "An",
 };
 
-const dieRegex = new RegExp("[a-zA-Z]", 'g');
+comboCaps = Object.keys(comboDice).join("");
+console.log("Combo Caps: " + comboCaps);
+const boardRegex = new RegExp("^[a-z" + comboCaps + "]*$");
+
+const dieRegex = new RegExp("[a-z" + comboCaps + "]", 'g');
+
 function toComboDie (string) {
 	let char = string.substr(0,1);
 	if (!char.match(dieRegex)) {

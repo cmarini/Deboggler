@@ -10,7 +10,6 @@ export default class Die extends React.Component {
             value: '',
             valid: false,
         };
-        this.inputRef = React.createRef();
     }
 
     validateDie(string, increment) {
@@ -47,23 +46,22 @@ export default class Die extends React.Component {
     }
 
     render() {
-        return e("input", {
+        return e("div", {
             className: "die " + (this.state.valid==true?"valid":"invalid"),
             // className: "die " + this.state.valid?"valid":"invalid",
             row: this.props.row,
             col: this.props.col,
             idx: this.props.idx,
             id: this.props.id,
-            ref: this.inputRef,
             tabIndex: "0",
-            value: this.state.value,
-            onChange: (event) => {
-                this.handleChange(event);
-            },
-            onKeyUp: (event) => {
-                this.handleKeyUp(event);
-            },
-        }, this.props.value);
+            value: this.props.value,
+            // onChange: (event) => {
+            //     this.handleChange(event);
+            // },
+            // onKeyUp: (event) => {
+            //     this.handleKeyUp(event);
+            // },
+        }, (this.props.value.length<=0 ? "\u00a0" : toComboDie(this.props.value)) );
     }
 }
 
