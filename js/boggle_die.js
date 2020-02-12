@@ -46,9 +46,10 @@ export default class Die extends React.Component {
     }
 
     render() {
+        let valid = this.props.value ? "valid" : "invalid";
+        let character = this.props.value.length<=0 ? "\u00a0" : toComboDie(this.props.value);
         return e("div", {
-            className: "die " + (this.state.valid==true?"valid":"invalid"),
-            // className: "die " + this.state.valid?"valid":"invalid",
+            className: "die " + valid,
             row: this.props.row,
             col: this.props.col,
             idx: this.props.idx,
@@ -61,7 +62,7 @@ export default class Die extends React.Component {
             // onKeyUp: (event) => {
             //     this.handleKeyUp(event);
             // },
-        }, (this.props.value.length<=0 ? "\u00a0" : toComboDie(this.props.value)) );
+        }, character );
     }
 }
 

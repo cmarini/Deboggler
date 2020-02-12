@@ -13,11 +13,11 @@ class Board extends React.Component {
     }
 
     handleInputChange(event) {
-        console.log(`handleInputChange: ${event.target.value}`);
+        // console.log(`handleInputChange: ${event.target.value}`);
         /* Convert all non-comboCaps to lowercase */
         const re = new RegExp("[^"+comboCaps+"]", 'g');
         let modified = event.target.value.replace(re, (match) => {
-            console.log(`match: ${match}`);
+            // console.log(`match: ${match}`);
             return match.toLowerCase();
         });
 
@@ -50,7 +50,7 @@ class Board extends React.Component {
             }
             dieRows.push(e("div", { className: "dieRow", row: row, key: `dieRow_${row}` }, dice));
         }
-        console.log(dieRows);
+        // console.log(dieRows);
         return e("div", { id: "react-board-wrap" } ,
             e("input", { 
                 id: "react-board-input",
@@ -63,4 +63,4 @@ class Board extends React.Component {
 }
 
 const domContainer = document.querySelector('#react-boggle-board');
-ReactDOM.render(e(Board, { size: 5 }), domContainer);
+ReactDOM.render(e(Board, { size: 20 }), domContainer);

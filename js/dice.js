@@ -10,7 +10,6 @@ var comboDice = {
 comboCaps = Object.keys(comboDice).join("");
 console.log("Combo Caps: " + comboCaps);
 const boardRegex = new RegExp("^[a-z" + comboCaps + "]*$");
-
 const dieRegex = new RegExp("[a-z" + comboCaps + "]", 'g');
 
 function toComboDie (string) {
