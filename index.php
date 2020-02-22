@@ -103,6 +103,7 @@
         <button onclick="randomFill();">Randomize</button>
         <div id="comboDice">
         </div>
+        <div id="react-boggle-board-settings" />
     </div>
     <input type="text" id="boardInput" pattern="[a-zQ]+">
     <div id="react-boggle-board"></div>
@@ -181,7 +182,8 @@ $(document).ready(function() {
         if (val < min) val = min;
         forEle.text(val).next().text("x"+val);
         if (val != boardSize) {
-            boardSize = val;
+            // boardSize = val;
+            // reactBoard.setState( {size: val });
             //drawBoard();
         }
     });
@@ -210,8 +212,8 @@ $(document).ready(function() {
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
 <!-- Load our React component. -->
-<script src="js/boggle_die.js" type="module"></script>
-<script src="js/boggle_board.js" type="module"></script>
+<script src="lib/boggle_die.js" type="module"></script>
+<script src="lib/boggle_board.js" type="module"></script>
 
 </html>
 

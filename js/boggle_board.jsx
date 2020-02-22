@@ -4,24 +4,23 @@ import Die from './boggle_die.js';
 
 const e = React.createElement;
 
-class Board extends React.Component {
+export default class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             value: "",
+            size: this.props.initialSize,
         }
     }
 
     handleInputChange(event) {
-        // console.log(`handleInputChange: ${event.target.value}`);
         /* Convert all non-comboCaps to lowercase */
         const re = new RegExp("[^"+comboCaps+"]", 'g');
         let modified = event.target.value.replace(re, (match) => {
-            // console.log(`match: ${match}`);
             return match.toLowerCase();
         });
 
-        if (modified.length <= (this.props.size*this.props.size) && 
+        if (modified.length <= (this.state.size*this.state.size) && 
             boardRegex.test(modified)
         ) {
             this.setState({ value: modified });
@@ -29,7 +28,7 @@ class Board extends React.Component {
     }
 
     renderDie(row, col) {
-        let idx = (row * this.props.size) + col;
+        let idx = (row * this.state.size) + col;
         return e(Die, {
             row: row, 
             col: col, 
@@ -43,14 +42,14 @@ class Board extends React.Component {
     render() {
         let row, col;
         let dieRows = [];
-        for (row = 0; row < this.props.size; row++) {
+        for (row = 0; row < this.state.size; row++) {
             let dice = [];
-            for (col = 0; col < this.props.size; col++) {
+            for (col = 0; col < this.state.size; col++) {
                 dice.push(this.renderDie(row, col));
             }
             dieRows.push(e("div", { className: "dieRow", row: row, key: `dieRow_${row}` }, dice));
         }
-        // console.log(dieRows);
+        /* 
         return e("div", { id: "react-board-wrap" } ,
             e("input", { 
                 id: "react-board-input",
@@ -58,9 +57,23 @@ class Board extends React.Component {
                 onChange: (event) => { this.handleInputChange(event); },
             }),
             dieRows
+        ); 
+        */
+        return (
+            <div id="react-board-wrap">
+                <input 
+                    id="react-board-input"
+                    value={this.state.value}
+                    onChange={event => { this.handleInputChange(event); }}
+                />
+                {dieRows}
+            </div>
         );
     }
 }
 
 const domContainer = document.querySelector('#react-boggle-board');
-ReactDOM.render(e(Board, { size: 20 }), domContainer);
+export let reactBoard = e(Board, { initialSize: 5 });
+ReactDOM.render(reactBoard, domContainer);
+
+
