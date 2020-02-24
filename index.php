@@ -92,14 +92,15 @@
             </div>
         </div>
         Board Size: <span min="2" max="20" id="boardSize">4</span><span>x4</span>
-        <div class="arrowsContainer">
+        <div id="react-boggle-board-settings"/>
+        <!-- <div class="arrowsContainer">
             <div class="arrowBox up outset" for="#boardSize">
                 <div class="arrow up"></div>
             </div>
             <div class="arrowBox down outset" for="#boardSize">
                 <div class="arrow down"></div>
             </div>
-        </div>
+        </div> -->
         <button onclick="randomFill();">Randomize</button>
         <div id="comboDice">
         </div>
@@ -169,7 +170,7 @@ $(document).ready(function() {
     $('#resultsWrap').hide();
     $('#searchWrap').hide();
     if (DEBUG) $('#debug').show();
-
+/* 
     $('.arrowBox').bind('click', function () {
         var forEle = $($(this).attr("for"));
         var val = parseInt(forEle.text());
@@ -196,7 +197,7 @@ $(document).ready(function() {
     $('.arrowBox').bind('mouseup', function () {
         $(this).addClass("outset");
         $(this).removeClass("inset");
-    });
+    }); */
     buildDict();
     dictSearchSetup();
     // $("#indexProgWrap").fadeOut();
@@ -214,6 +215,7 @@ $(document).ready(function() {
 <!-- Load our React component. -->
 <script src="lib/boggle_die.js" type="module"></script>
 <script src="lib/boggle_board.js" type="module"></script>
+<script src="lib/board_settings.js" type="module"></script>
 
 </html>
 

@@ -2,7 +2,8 @@
 
 import reactBoard from './boggle_board.js';
 
-const e = React.createElement;
+const BOARD_SIZE_MIN = 2;
+const BOARD_SIZE_MAX = 20;
 
 export default class BoardSettings extends React.Component {
     constructor(props) {
@@ -13,32 +14,39 @@ export default class BoardSettings extends React.Component {
         }
     }
 
-    handleInputChange(event) {
+    handleClick(event, val) {
+        console.log(`handleClick: ${val}`);
+        let newVal = this.state.size + val;
+        if (newVal < BOARD_SIZE_MIN) { newVal = BOARD_SIZE_MIN}
+        if (newVal > BOARD_SIZE_MAX) { newVal = BOARD_SIZE_MAX}
+        this.setState({ size: newVal });
     }
 
     render() {
-        /*
-        return e("div", { id: "arrowsContainer" } ,
-            e("input", { 
-                id: "react-board-input",
-                value: this.state.value,
-                onChange: (event) => { this.handleInputChange(event); },
-            }),
-            dieRows
-        );
-        */
         return (
-            <div id="arrowsContainer">
-                <input id="react-board-input"
-                value={this.state.value}
-                onChange={handleInputChange}
-                />
+            <div>
+                <span>{["Board Size: ", this.state.size, "x", this.state.size]}</span>
+                <div className="arrowsContainer">
+                    <div className="arrowBox up outset"
+                    onClick={e => this.handleClick(e, 1)}
+                    >
+                        <div className="arrow up"></div>
+                    </div>
+                    <div className="arrowBox down outset"
+                    onClick={e => this.handleClick(e, -1)}
+                    >
+                        <div className="arrow down"></div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
 const domContainer = document.querySelector('#react-boggle-board-settings');
-ReactDOM.render(e(BoardSettings, { initialSize: 5 }), domContainer);
+ReactDOM.render(
+    <BoardSettings initialSize={5}/>,
+    domContainer
+);
 
 
