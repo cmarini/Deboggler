@@ -47,18 +47,16 @@ export default class Board extends React.Component {
             for (col = 0; col < this.state.size; col++) {
                 dice.push(this.renderDie(row, col));
             }
-            dieRows.push(e("div", { className: "dieRow", row: row, key: `dieRow_${row}` }, dice));
+           dieRows.push(
+                <div 
+                    className="dieRow"
+                    row={row}
+                    key={`dieRow_${row}`}
+                >
+                {dice}
+                </div>
+            );
         }
-        /* 
-        return e("div", { id: "react-board-wrap" } ,
-            e("input", { 
-                id: "react-board-input",
-                value: this.state.value,
-                onChange: (event) => { this.handleInputChange(event); },
-            }),
-            dieRows
-        ); 
-        */
         return (
             <div id="react-board-wrap">
                 <input 
@@ -73,7 +71,7 @@ export default class Board extends React.Component {
 }
 
 const domContainer = document.querySelector('#react-boggle-board');
-export let reactBoard = e(Board, { initialSize: 5 });
+export let reactBoard = <Board initialSize={5}/>;
 ReactDOM.render(reactBoard, domContainer);
 
 

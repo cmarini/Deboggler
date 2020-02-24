@@ -15,13 +15,12 @@
         var DEBUG_useShortDict = false;
         <?php 
         $GIT_BRANCH = implode('/', array_slice(explode('/', file_get_contents('.git/HEAD')), 2));
-        if (strtolower(trim($GIT_BRANCH)) == "dev") {
+        if (strtolower(trim($GIT_BRANCH)) != "master") {
             echo "var DEBUG = true;";
         } else {
             echo "var DEBUG = false;";
         }
         ?>
-        DEBUG = false;
     </script>    
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $p ?>/apple-touch-icon.png">
@@ -91,16 +90,18 @@
                 </div>
             </div>
         </div>
+        <div id="react-boggle-board-settings"></div>
+        <!-- 
         Board Size: <span min="2" max="20" id="boardSize">4</span><span>x4</span>
-        <div id="react-boggle-board-settings"/>
-        <!-- <div class="arrowsContainer">
+        <div class="arrowsContainer">
             <div class="arrowBox up outset" for="#boardSize">
                 <div class="arrow up"></div>
             </div>
             <div class="arrowBox down outset" for="#boardSize">
                 <div class="arrow down"></div>
             </div>
-        </div> -->
+        </div> 
+        -->
         <button onclick="randomFill();">Randomize</button>
         <div id="comboDice">
         </div>
