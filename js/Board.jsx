@@ -1,10 +1,11 @@
 'use strict';
 
-import Die from './Die.jsx/index.js';
+import Die from './Die.js';
 
 export default class Board extends React.Component {
     constructor(props) {
         super(props);
+        console.log("BOARD CONSTRUCTOR");
         this.state = {
             value: "",
             size: this.props.initialSize,

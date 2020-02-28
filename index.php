@@ -196,7 +196,7 @@ $(document).ready(function() {
 });
 </script>
 
-<script type="text/javascript" src="js/components/dict-search.js"></script>
+<script type="text/javascript" src="lib/components/dict-search.js"></script>
 
 <!-- Load React. -->
 <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
@@ -205,9 +205,9 @@ $(document).ready(function() {
 
 <!-- Load our React component. -->
 <script src="lib/App.js" type="module"></script>
-<script src="lib/boggle_die.js" type="module"></script>
-<script src="lib/boggle_board.js" type="module"></script>
-<script src="lib/board_settings.js" type="module"></script>
+<script src="lib/Die.js" type="module"></script>
+<script src="lib/Board.js" type="module"></script>
+<script src="lib/BoardSettings.js" type="module"></script>
 
 </html>
 

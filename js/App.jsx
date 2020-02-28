@@ -1,16 +1,27 @@
 'use strict';
 
-import Die from './Die.jsx';
-import Board from './Board.jsx';
-import BoardSettings from './BoardSettings.jsx';
+import Die from './Die.js';
+import Board from './Board.js';
+import BoardSettings from './BoardSettings.js';
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { boardSize: 5 };
+    }
+
+    updateBoardSize(size) {
+
+    }
+
     render() {
         return (
             <div>
-                <BoardSettings initialSize={5} />
+                <BoardSettings initialSize={5}
+                    updateCallback={this.updateBoardSize}
+                />
                 <div id={"react-boggle-board"}>
-                    <Board initialSize={5} />
+                    <Board initialSize={this.state.boardSize} />
                 </div>
             </div>
         );
