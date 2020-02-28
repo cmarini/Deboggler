@@ -1,8 +1,8 @@
 'use strict';
 
-import Die from './boggle_die.js';
-import Board from './boggle_board.js';
-import BoardSettings from './board_settings.js';
+import Die from './Die.jsx';
+import Board from './Board.jsx';
+import BoardSettings from './BoardSettings.jsx';
 
 class App extends React.Component {
     render() {

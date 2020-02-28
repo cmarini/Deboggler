@@ -1,6 +1,6 @@
 'use strict';
 
-import Die from './boggle_die.js';
+import Die from './Die.jsx/index.js';
 
 export default class Board extends React.Component {
     constructor(props) {
