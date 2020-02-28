@@ -14,7 +14,7 @@ export default class Die extends React.Component {
 
     validateDie(string, increment) {
         console.log(`validateDie: die=${this.props.idx} str='${string}' inc=${increment}`);
-        this.setState({ value: string, valid: string.length>0?true:false });
+        this.setState({ value: string, valid: string.length > 0 ? true : false });
         $(`#die_${this.props.idx + increment}`).focus();
     }
 
@@ -23,7 +23,7 @@ export default class Die extends React.Component {
         let cur = this.state.value;
         let next = 1;
         if (str.length > cur.length) {
-            if (str.substr(0,cur.length) === cur) {
+            if (str.substr(0, cur.length) === cur) {
                 str = str.substr(cur.length);
             }
         }
@@ -47,22 +47,20 @@ export default class Die extends React.Component {
 
     render() {
         let valid = this.props.value ? "valid" : "invalid";
-        let character = this.props.value.length<=0 ? "\u00a0" : toComboDie(this.props.value);
-        return e("div", {
-            className: "die " + valid,
-            row: this.props.row,
-            col: this.props.col,
-            idx: this.props.idx,
-            id: this.props.id,
-            tabIndex: "0",
-            value: this.props.value,
-            // onChange: (event) => {
-            //     this.handleChange(event);
-            // },
-            // onKeyUp: (event) => {
-            //     this.handleKeyUp(event);
-            // },
-        }, character );
+        let character = this.props.value.length <= 0 ? "\u00a0" : toComboDie(this.props.value);
+        return (
+            <div
+                className={"die " + valid}
+                row={this.props.row}
+                col={this.props.col}
+                idx={this.props.idx}
+                id={this.props.id}
+                tabIndex={"0"}
+                value={this.props.value}
+            >
+                {character}
+            </div>
+        );
     }
 }
 
