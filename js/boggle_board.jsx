@@ -70,8 +70,4 @@ export default class Board extends React.Component {
     }
 }
 
-const domContainer = document.querySelector('#react-boggle-board');
-export let reactBoard = <Board initialSize={5} />;
-ReactDOM.render(reactBoard, domContainer);
-
 

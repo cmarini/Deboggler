@@ -105,10 +105,9 @@
         <button onclick="randomFill();">Randomize</button>
         <div id="comboDice">
         </div>
-        <div id="react-boggle-board-settings" />
     </div>
     <input type="text" id="boardInput" pattern="[a-zQ]+">
-    <div id="react-boggle-board"></div>
+    <!-- <div id="react-boggle-board"></div> -->
     <div id="playArea" class="row">
         <div id="boardWrap" class="col">
             <div id="board"></div>
@@ -147,15 +146,6 @@
     </div>
 -->
     <code id="debug" style="display: none;">
-    <?php
-    echo "<br />";
-    echo "Deboggler Version: ".date("m/d/y H:i:s",filemtime("js/deboggler.js"));
-    echo "<br />";
-    ?>
-    <?php 
-    echo "Branch: ".$GIT_BRANCH;
-    echo "<br />";
-    ?>
     </code>
 
 </body>
@@ -214,6 +204,7 @@ $(document).ready(function() {
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
 <!-- Load our React component. -->
+<script src="lib/App.js" type="module"></script>
 <script src="lib/boggle_die.js" type="module"></script>
 <script src="lib/boggle_board.js" type="module"></script>
 <script src="lib/board_settings.js" type="module"></script>

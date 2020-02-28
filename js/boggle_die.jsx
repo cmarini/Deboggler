@@ -1,6 +1,5 @@
 'use strict';
 
-const e = React.createElement;
 const dieRegex = new RegExp("[a-zA-Z]" + comboCaps + "]", 'g');
 
 export default class Die extends React.Component {
@@ -63,6 +62,3 @@ export default class Die extends React.Component {
         );
     }
 }
-
-// const domContainer = document.querySelector('#react-boggle-board');
-// ReactDOM.render(e(Board, { size: 5 }), domContainer);

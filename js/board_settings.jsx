@@ -1,7 +1,5 @@
 'use strict';
 
-import reactBoard from './boggle_board.js';
-
 const BOARD_SIZE_MIN = 2;
 const BOARD_SIZE_MAX = 20;
 
@@ -42,11 +40,3 @@ export default class BoardSettings extends React.Component {
         );
     }
 }
-
-const domContainer = document.querySelector('#react-boggle-board-settings');
-ReactDOM.render(
-    <BoardSettings initialSize={5}/>,
-    domContainer
-);
-
-
