@@ -8,18 +8,23 @@ export default class Board extends React.Component {
         console.log("BOARD CONSTRUCTOR");
         this.state = {
             value: "",
-            size: this.props.initialSize,
         }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     handleInputChange(event) {
         /* Convert all non-comboCaps to lowercase */
+        let modified = event.target.value;
+        if (modified.length > (this.props.size * this.props.size)) {
+            modified = event.target.value.substr(0, this.props.size * this.props.size);
+        }
         const re = new RegExp("[^" + comboCaps + "]", 'g');
-        let modified = event.target.value.replace(re, (match) => {
+        modified = modified.replace(re, (match) => {
             return match.toLowerCase();
         });
 
-        if (modified.length <= (this.state.size * this.state.size) &&
+        if (modified.length <= (this.props.size * this.props.size) &&
             boardRegex.test(modified)
         ) {
             this.setState({ value: modified });
@@ -27,7 +32,7 @@ export default class Board extends React.Component {
     }
 
     renderDie(row, col) {
-        let idx = (row * this.state.size) + col;
+        let idx = (row * this.props.size) + col;
         return (
             <Die
                 row={row}
@@ -41,11 +46,12 @@ export default class Board extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         let row, col;
         let dieRows = [];
-        for (row = 0; row < this.state.size; row++) {
+        for (row = 0; row < this.props.size; row++) {
             let dice = [];
-            for (col = 0; col < this.state.size; col++) {
+            for (col = 0; col < this.props.size; col++) {
                 dice.push(this.renderDie(row, col));
             }
             dieRows.push(

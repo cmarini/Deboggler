@@ -6,22 +6,27 @@ import BoardSettings from './BoardSettings.js';
 
 class App extends React.Component {
     constructor(props) {
+        console.log("APP CONSTRUCTOR");
+
         super(props);
         this.state = { boardSize: 5 };
+
+        this.updateBoardSize = this.updateBoardSize.bind(this);
     }
 
-    updateBoardSize(size) {
-
+    updateBoardSize(newVal) {
+        console.log(`updateBoardSize(${newVal})`);
+        this.setState({ boardSize: newVal });
     }
 
     render() {
         return (
             <div>
-                <BoardSettings initialSize={5}
+                <BoardSettings size={this.state.boardSize}
                     updateCallback={this.updateBoardSize}
                 />
                 <div id={"react-boggle-board"}>
-                    <Board initialSize={this.state.boardSize} />
+                    <Board size={this.state.boardSize} />
                 </div>
             </div>
         );
