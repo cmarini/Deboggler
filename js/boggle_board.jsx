@@ -2,8 +2,6 @@
 
 import Die from './boggle_die.js';
 
-const e = React.createElement;
-
 export default class Board extends React.Component {
     constructor(props) {
         super(props);
@@ -15,12 +13,12 @@ export default class Board extends React.Component {
 
     handleInputChange(event) {
         /* Convert all non-comboCaps to lowercase */
-        const re = new RegExp("[^"+comboCaps+"]", 'g');
+        const re = new RegExp("[^" + comboCaps + "]", 'g');
         let modified = event.target.value.replace(re, (match) => {
             return match.toLowerCase();
         });
 
-        if (modified.length <= (this.state.size*this.state.size) && 
+        if (modified.length <= (this.state.size * this.state.size) &&
             boardRegex.test(modified)
         ) {
             this.setState({ value: modified });
@@ -29,14 +27,16 @@ export default class Board extends React.Component {
 
     renderDie(row, col) {
         let idx = (row * this.state.size) + col;
-        return e(Die, {
-            row: row, 
-            col: col, 
-            value: this.state.value.substr(idx, 1),
-            idx: idx,
-            key: `die_${idx}`,
-            id: `die_${idx}`
-        });
+        return (
+            <Die
+                row={row}
+                col={col}
+                value={this.state.value.substr(idx, 1)}
+                idx={idx}
+                key={`die_${idx}`}
+                id={`die_${idx}`}
+            ></Die>
+        )
     }
 
     render() {
@@ -47,19 +47,19 @@ export default class Board extends React.Component {
             for (col = 0; col < this.state.size; col++) {
                 dice.push(this.renderDie(row, col));
             }
-           dieRows.push(
-                <div 
+            dieRows.push(
+                <div
                     className="dieRow"
                     row={row}
                     key={`dieRow_${row}`}
                 >
-                {dice}
+                    {dice}
                 </div>
             );
         }
         return (
             <div id="react-board-wrap">
-                <input 
+                <input
                     id="react-board-input"
                     value={this.state.value}
                     onChange={event => { this.handleInputChange(event); }}
@@ -71,7 +71,7 @@ export default class Board extends React.Component {
 }
 
 const domContainer = document.querySelector('#react-boggle-board');
-export let reactBoard = <Board initialSize={5}/>;
+export let reactBoard = <Board initialSize={5} />;
 ReactDOM.render(reactBoard, domContainer);
 
 
