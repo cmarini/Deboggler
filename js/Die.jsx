@@ -40,7 +40,9 @@ export default class Die extends React.PureComponent {
     handleKeyUp(event) {
         if (event.key == "Backspace" && event.target.value == "") {
             this.validateDie("", -1);
-            this.setState({ valid: false });
+            this.setState((prevState, props) => {
+                return { valid: false }
+            });
         }
     }
 
