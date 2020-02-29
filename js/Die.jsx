@@ -2,7 +2,7 @@
 
 const dieRegex = new RegExp("[a-zA-Z]" + comboCaps + "]", 'g');
 
-export default class Die extends React.Component {
+export default class Die extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
