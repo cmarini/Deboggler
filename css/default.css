@@ -157,12 +157,14 @@ body
     position: relative;
     z-index: 50;
 }
-#boardInput {
+#boardInput, 
+/* .react-board-input  */
+{
     position: fixed;
     top: -50px;
 }
     
-#board, #react-boggle-board
+#board, .react-boggle-board
 {
     display: inline-block;
     vertical-align: top;

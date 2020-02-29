@@ -46,7 +46,6 @@ export default class Board extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         let row, col;
         let dieRows = [];
         for (row = 0; row < this.props.size; row++) {
@@ -65,9 +64,9 @@ export default class Board extends React.Component {
             );
         }
         return (
-            <div id="react-board-wrap">
+            <div className="react-board-wrap">
                 <input
-                    id="react-board-input"
+                    className="react-board-input"
                     value={this.state.value}
                     onChange={event => { this.handleInputChange(event); }}
                 />

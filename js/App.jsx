@@ -25,7 +25,7 @@ class App extends React.Component {
                 <BoardSettings size={this.state.boardSize}
                     updateCallback={this.updateBoardSize}
                 />
-                <div id={"react-boggle-board"}>
+                <div className={"react-boggle-board"}>
                     <Board size={this.state.boardSize} />
                 </div>
             </div>
