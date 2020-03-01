@@ -3,19 +3,31 @@
 import Die from './Die.js';
 import Board from './Board.js';
 import BoardSettings from './BoardSettings.js';
+import * as Solver from './BoardSolver.js';
+import Dict from './Dict-BSS.js';
+
 
 class App extends React.Component {
     constructor(props) {
-        console.log("APP CONSTRUCTOR");
-
         super(props);
         this.state = {
             boardSize: 5,
             value: "",
+            dictLoaded: false,
         };
 
         this.updateBoardSize = this.updateBoardSize.bind(this);
         this.updateBoardStr = this.updateBoardStr.bind(this);
+        this.handleDictDone = this.handleDictDone.bind(this);
+
+        dict = new Dict();
+        dict.dictGenerator(this.handleDictDone);
+    }
+
+    handleDictDone() {
+        this.setState((prevState, props) => {
+            return { dictLoaded: true }
+        });
     }
 
     updateBoardSize(newVal) {
@@ -47,6 +59,7 @@ class App extends React.Component {
 
     handleSolveButton() {
         console.log("SOLVE BUTTON");
+        console.log(Solver.solve(this.state.boardSize, this.state.value))
     }
 
     render() {
@@ -61,14 +74,34 @@ class App extends React.Component {
                         value={this.state.value}
                     />
                 </div>
-
-                <div id="solveContainer">
-                    <button id="solveButton"
-                        onClick={event => { this.handleSolveButton(event); }}
-                    >
-                        Find Words
-                    </button>
-                </div>
+                {this.state.dictLoaded &&
+                    <div id="solveContainer">
+                        <button id="solveButton"
+                            onClick={event => { this.handleSolveButton(event); }}
+                        >
+                            {"Find Words"}
+                        </button>
+                    </div>
+                }
+                {this.state.dictLoaded ||
+                    <div id="dict-loading-tab">
+                        <div id="dict-loading-tab-slider">
+                            <div id="dict-loading-tab-wrap">
+                                {"Loading Dictionary"}
+                                <div className="loader">
+                                    <div className="duo duo1">
+                                        <div className="dot dot-a"></div>
+                                        <div className="dot dot-b"></div>
+                                    </div>
+                                    <div className="duo duo2">
+                                        <div className="dot dot-a"></div>
+                                        <div className="dot dot-b"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }

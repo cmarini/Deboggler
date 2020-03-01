@@ -8,7 +8,7 @@ var comboDice = {
 };
 
 comboCaps = Object.keys(comboDice).join("");
-console.log("Combo Caps: " + comboCaps);
+// console.log("Combo Caps: " + comboCaps);
 const boardRegex = new RegExp("^[a-z" + comboCaps + "]*$");
 const dieRegex = new RegExp("[a-z" + comboCaps + "]", 'g');
 
@@ -215,7 +215,7 @@ var diceLookup = [];
 
 /* Build Dice Lookup Table */
 diceVersions.forEach(function(ver,i) {
-    console.log(ver.dice.length);
+    // console.log(ver.dice.length);
     if (!diceLookup[ver.dice.length]) {
         diceLookup[ver.dice.length] = [];
     }

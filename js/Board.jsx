@@ -5,12 +5,9 @@ import Die from './Die.js';
 export default class Board extends React.Component {
     constructor(props) {
         super(props);
-        console.log("BOARD CONSTRUCTOR");
         this.state = {
             value: "",
         }
-
-        // this.handleInputChange = this.handleInputChange.bind(this);
     }
 
 

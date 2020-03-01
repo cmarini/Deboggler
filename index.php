@@ -41,23 +41,6 @@
 
 </head>
 <body>
-<div id="dict-loading-tab">
-    <div id="dict-loading-tab-slider">
-        <div id="dict-loading-tab-wrap">
-            Loading Dictionary
-            <div class="loader">
-            <div class="duo duo1">
-                <div class="dot dot-a"></div>
-                <div class="dot dot-b"></div>
-            </div>
-            <div class="duo duo2">
-                <div class="dot dot-a"></div>
-                <div class="dot dot-b"></div>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
     <div id="settings">
         <div id="searchTabWrap">
             <button id="searchTab">Search Dictionary</button>
@@ -152,10 +135,11 @@
     
 <script type="text/javascript" src="js/jquery.js"></script>
 <!-- <script type="text/javascript" src="js/dict.js"></script> -->
-<script type="text/javascript" src="js/deboggler.js"></script>
+<!-- <script type="text/javascript" src="js/deboggler.js"></script> -->
 <script type="text/javascript" src="js/dice.js"></script>
 
 <script type="text/javascript">
+let dict;
 $(document).ready(function() {
     if (DEBUG) console.log("Running main()");
     $('#resultsWrap').hide();
@@ -189,8 +173,8 @@ $(document).ready(function() {
         $(this).addClass("outset");
         $(this).removeClass("inset");
     }); */
-    buildDict();
-    dictSearchSetup();
+    // buildDict();
+    // dictSearchSetup();
     // $("#indexProgWrap").fadeOut();
     $("#boardInput").focus();
 });
@@ -208,6 +192,7 @@ $(document).ready(function() {
 <script src="lib/Die.js" type="module"></script>
 <script src="lib/Board.js" type="module"></script>
 <script src="lib/BoardSettings.js" type="module"></script>
+<script src="lib/BoardSolver.js" type="module"></script>
 
 </html>
 
