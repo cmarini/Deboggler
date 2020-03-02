@@ -62,11 +62,10 @@ class App extends React.Component {
     handleSolveButton() {
         console.log("SOLVE BUTTON");
         let res = Solver.solve(this.dict, this.state.boardSize, this.state.value);
-        console.log("SOLVE DONE");
-        console.log(res);
         this.setState((prevState, props) => {
             return { results: res };
         })
+        console.log("SOLVE BUTTON DONE");
     }
 
     render() {
@@ -90,20 +89,22 @@ class App extends React.Component {
                         </button>
                     </div>
                 }
-                <div id="resultsWrap" className="col">
-                    <div id="numWords">Found {this.state.results.length} words</div>
-                    <div id="filterWrap">
-                        <label>Filter:</label><input type="text" id="resultsFilter" />
+                {this.state.results.length > 0 &&
+                    <div id="resultsWrap" className="col">
+                        <div id="numWords">Found {this.state.results.length} words</div>
+                        <div id="filterWrap">
+                            <label>Filter:</label><input type="text" id="resultsFilter" />
+                        </div>
+                        <WordList
+                            sort={"Alphabetical"}
+                            list={this.state.results}
+                        />
+                        <WordList
+                            sort={"Length"}
+                            list={this.state.results}
+                        />
                     </div>
-                    <WordList
-                        sort={"Alphabetical"}
-                        list={this.state.results}
-                    />
-                    <WordList
-                        sort={"Length"}
-                        list={this.state.results}
-                    />
-                </div>
+                }
                 {this.state.dictLoaded ||
                     <div id="dict-loading-tab">
                         <div id="dict-loading-tab-slider">
