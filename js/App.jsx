@@ -3,6 +3,7 @@
 import Die from './Die.js';
 import Board from './Board.js';
 import BoardSettings from './BoardSettings.js';
+import WordList from './WordList.js';
 import * as Solver from './BoardSolver.js';
 import Dict from './Dict-BSS.js';
 
@@ -14,14 +15,15 @@ class App extends React.Component {
             boardSize: 5,
             value: "",
             dictLoaded: false,
+            results: [],
         };
 
         this.updateBoardSize = this.updateBoardSize.bind(this);
         this.updateBoardStr = this.updateBoardStr.bind(this);
         this.handleDictDone = this.handleDictDone.bind(this);
 
-        dict = new Dict();
-        dict.dictGenerator(this.handleDictDone);
+        this.dict = new Dict();
+        this.dict.dictGenerator(this.handleDictDone);
     }
 
     handleDictDone() {
@@ -59,7 +61,12 @@ class App extends React.Component {
 
     handleSolveButton() {
         console.log("SOLVE BUTTON");
-        console.log(Solver.solve(this.state.boardSize, this.state.value))
+        let res = Solver.solve(this.dict, this.state.boardSize, this.state.value);
+        console.log("SOLVE DONE");
+        console.log(res);
+        this.setState((prevState, props) => {
+            return { results: res };
+        })
     }
 
     render() {
@@ -83,6 +90,20 @@ class App extends React.Component {
                         </button>
                     </div>
                 }
+                <div id="resultsWrap" className="col">
+                    <div id="numWords">Found {this.state.results.length} words</div>
+                    <div id="filterWrap">
+                        <label>Filter:</label><input type="text" id="resultsFilter" />
+                    </div>
+                    <WordList
+                        sort={"Alphabetical"}
+                        list={this.state.results}
+                    />
+                    <WordList
+                        sort={"Length"}
+                        list={this.state.results}
+                    />
+                </div>
                 {this.state.dictLoaded ||
                     <div id="dict-loading-tab">
                         <div id="dict-loading-tab-slider">

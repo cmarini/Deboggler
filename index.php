@@ -74,60 +74,7 @@
             </div>
         </div>
         <div id="react-boggle-board-settings"></div>
-        <!-- 
-        Board Size: <span min="2" max="20" id="boardSize">4</span><span>x4</span>
-        <div class="arrowsContainer">
-            <div class="arrowBox up outset" for="#boardSize">
-                <div class="arrow up"></div>
-            </div>
-            <div class="arrowBox down outset" for="#boardSize">
-                <div class="arrow down"></div>
-            </div>
-        </div> 
-        -->
-        <button onclick="randomFill();">Randomize</button>
-        <div id="comboDice">
-        </div>
     </div>
-    <input type="text" id="boardInput" pattern="[a-zQ]+">
-    <!-- <div id="react-boggle-board"></div> -->
-    <div id="playArea" class="row">
-        <div id="boardWrap" class="col">
-            <div id="board"></div>
-            <div id="solveContainer">
-                <button onclick="solve();" id="solveButton">Find Words</button>
-            </div>
-        </div>
-        
-        <div id="resultsWrap" class="col">
-            <div id="numWords"></div>
-            <div id="filterWrap">
-                <label>Filter:</label><input type="text" id="resultsFilter"/>
-            </div>
-            <div class="resultsListWrap card-2">
-                <span>Alphabetical</span>
-                <div id="results" class="resultsListContainer">
-                    <div class="resultsList"></div>
-                </div>
-                <!-- <button onclick="copyList(this);">Copy to clipboard</button> -->
-            </div>
-            <div class="resultsListWrap card-2">
-                <span>Length</span>
-                <div id="resultsByLen" class="resultsListContainer">
-                    <div class="resultsList"></div>
-                </div>
-                <!-- <button onclick="copyList(this);">Copy to clipboard</button> -->
-            </div>
-        </div>
-        
-    </div>
-<!-- 
-    <div id="indexProgWrap">
-        <div id="indexProg">
-            <div id="indexProgVal" class="">Getting Dictionary...</div>
-        </div>
-    </div>
--->
     <code id="debug" style="display: none;">
     </code>
 
@@ -142,41 +89,7 @@
 let dict;
 $(document).ready(function() {
     if (DEBUG) console.log("Running main()");
-    $('#resultsWrap').hide();
-    $('#searchWrap').hide();
     if (DEBUG) $('#debug').show();
-/* 
-    $('.arrowBox').bind('click', function () {
-        var forEle = $($(this).attr("for"));
-        var val = parseInt(forEle.text());
-        var min = parseInt(forEle.attr("min"));
-        var max = parseInt(forEle.attr("max"));
-        if ($(this).hasClass("up")) val++;
-        if ($(this).hasClass("down")) val--;
-        
-        if (val > max) val = max;
-        if (val < min) val = min;
-        forEle.text(val).next().text("x"+val);
-        if (val != boardSize) {
-            // boardSize = val;
-            // reactBoard.setState( {size: val });
-            //drawBoard();
-        }
-    });
-    $('.arrowBox.up').click();
-
-    $('.arrowBox').bind('mousedown', function () {
-        $(this).addClass("inset");
-        $(this).removeClass("outset");
-    });
-    $('.arrowBox').bind('mouseup', function () {
-        $(this).addClass("outset");
-        $(this).removeClass("inset");
-    }); */
-    // buildDict();
-    // dictSearchSetup();
-    // $("#indexProgWrap").fadeOut();
-    $("#boardInput").focus();
 });
 </script>
 

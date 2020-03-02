@@ -3,6 +3,7 @@ import Dict from "./Dict-BSS.js";
 let board;
 let boardSize = 0;
 let validWords;
+let dict;
 
 function getBoard(boardStr) {
     board = [];
@@ -16,7 +17,8 @@ function getBoard(boardStr) {
     return board;
 }
 
-export function solve(size, boardStr) {
+export function solve(_dict, size, boardStr) {
+    dict = _dict;
     boardSize = size;
     if (boardStr.length != (boardSize * boardSize)) {
         console.error(`Board string is the wrong length!\n${boardSize}x${boardSize} - ${boardStr}`);
@@ -24,7 +26,7 @@ export function solve(size, boardStr) {
     }
     getBoard(boardStr);
 
-    console.log(board);
+    // console.log(board);
     console.log("-- SOLVING BOARD");
     console.time("-- SOLVING BOARD");
     validWords = new Array();
@@ -50,9 +52,9 @@ function solveRecurse(word, row, col, memo) {
     word += board[row][col];
     memo[row][col] = true;
     if (word.length >= 2) {
-        if (Dict.canBeWord(word)) {
-            if (word.length >= minCharLimit) {
-                if (Dict.isWord(word)) {
+        if (dict.canBeWord(word)) {
+            if (word.length >= dict.minCharLimit) {
+                if (dict.isWord(word)) {
                     validWords.push(word);
                 }
             }
@@ -62,7 +64,7 @@ function solveRecurse(word, row, col, memo) {
             return;
         }
     }
-    if (word.length < charLimit) {
+    if (word.length < dict.maxCharLimit) {
         for (var r = (-1); r < 2; r++) {
             for (var c = (-1); c < 2; c++) {
                 if (row + r >= 0 && row + r < boardSize &&
