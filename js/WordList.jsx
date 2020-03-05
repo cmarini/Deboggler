@@ -21,10 +21,12 @@ export default class Die extends React.PureComponent {
             list = this.props.list.sort();
         }
 
+        let empty = this.props.list.length <= 0 ? "empty" : "";
+
         return (
             <div className="resultsListWrap card-2">
                 <span>{this.props.sort}</span>
-                <div className="resultsListContainer">
+                <div className={"resultsListContainer " + empty}>
                     <ul className="resultsList">
                         {list.map((word, idx) =>
                             <li key={idx}>

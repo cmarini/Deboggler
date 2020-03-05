@@ -3,7 +3,7 @@
 import Die from './Die.js';
 import Board from './Board.js';
 import BoardSettings from './BoardSettings.js';
-import WordList from './WordList.js';
+import Results from './Results.js';
 import * as Solver from './BoardSolver.js';
 import Dict from './Dict-BSS.js';
 
@@ -99,20 +99,7 @@ class App extends React.Component {
                     </div>
                 }
                 {this.state.results.length > 0 &&
-                    <div id="resultsWrap" className="col">
-                        <div id="numWords">Found {this.state.results.length} words</div>
-                        <div id="filterWrap">
-                            <label>Filter:</label><input type="text" id="resultsFilter" />
-                        </div>
-                        <WordList
-                            sort={"Alphabetical"}
-                            list={this.state.results}
-                        />
-                        <WordList
-                            sort={"Length"}
-                            list={this.state.results}
-                        />
-                    </div>
+                    <Results list={this.state.results} />
                 }
                 {this.state.dictLoaded ||
                     <div id="dict-loading-tab">
