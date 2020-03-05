@@ -26,6 +26,10 @@ class App extends React.Component {
         this.dict.dictGenerator(this.handleDictDone);
     }
 
+    isBoardFull() {
+        return this.state.value.length == (this.state.boardSize*this.state.boardSize);
+    }
+
     handleDictDone() {
         this.setState((prevState, props) => {
             return { dictLoaded: true }
@@ -53,9 +57,14 @@ class App extends React.Component {
         if (modified.length <= (this.state.boardSize * this.state.boardSize) &&
             boardRegex.test(modified)
         ) {
-            this.setState((prevState, props) => {
-                return { value: modified };
-            });
+            if (modified != this.state.value) {
+                this.setState((prevState, props) => {
+                    return {
+                        value: modified,
+                        results: []
+                    };
+                });
+            }
         }
     }
 
@@ -80,7 +89,7 @@ class App extends React.Component {
                         value={this.state.value}
                     />
                 </div>
-                {this.state.dictLoaded &&
+                {this.state.dictLoaded && this.isBoardFull() &&
                     <div id="solveContainer">
                         <button id="solveButton"
                             onClick={event => { this.handleSolveButton(event); }}
