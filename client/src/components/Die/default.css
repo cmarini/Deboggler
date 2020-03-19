@@ -24,6 +24,12 @@
     font-weight: bold;
     color: firebrick;
 }
+
+.die:focus {
+    box-shadow: inset 0px 0px 8px 0px black;
+}
+
+
  .die.invalid
 {
     color: white;

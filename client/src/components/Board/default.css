@@ -9,3 +9,16 @@
     padding: 10px;
     background: rgb(105, 105, 105);
 }
+
+.dieRow
+{
+    /* display: inline-block; */
+    float: left;
+    clear: both;
+}
+
+.react-board-input
+{
+    position: fixed;
+    top: -50px;
+}

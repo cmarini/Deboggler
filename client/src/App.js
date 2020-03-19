@@ -84,23 +84,25 @@ class App extends React.Component {
         <BoardSettings size={this.state.boardSize}
           updateCallback={this.updateBoardSize}
         />
-        <div className={"react-boggle-board"}>
-          <Board size={this.state.boardSize}
-            updateCallback={this.updateBoardStr}
-            value={this.state.value}
-          />
-        </div>
-        {this.state.dictLoaded && this.isBoardFull() &&
-          <div id="solveContainer">
-            <button id="solveButton"
-              onClick={event => { this.handleSolveButton(event); }}
-            >
-              {"Find Words"}
-            </button>
+        <div className={"col"}>
+          <div className={"react-boggle-board"}>
+            <Board size={this.state.boardSize}
+              updateCallback={this.updateBoardStr}
+              value={this.state.value}
+            />
           </div>
-        }
+          {this.state.dictLoaded && this.isBoardFull() &&
+            <div id="solveContainer">
+              <button id="solveButton"
+                onClick={event => { this.handleSolveButton(event); }}
+              >
+                {"Find Words"}
+              </button>
+            </div>
+          }
+        </div>
         {this.state.results.length > 0 &&
-          <Results list={this.state.results} />
+          <Results className={"col"} list={this.state.results} />
         }
         {this.state.dictLoaded ||
           <div id="dict-loading-tab">

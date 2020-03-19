@@ -157,8 +157,7 @@ body
     position: relative;
     z-index: 50;
 }
-#boardInput, 
-/* .react-board-input  */
+#boardInput /*, .react-board-input  */
 {
     position: fixed;
     top: -50px;
@@ -202,16 +201,6 @@ body
     100% { box-shadow: inset 0 0 10px rgba(255, 0, 0, 1); }
 }
 
-.die:focus {
-    box-shadow: inset 0px 0px 8px 0px black;
-}
-
-.dieRow
-{
-    /* display: inline-block; */
-    float: left;
-    clear: both;
-}
 
 
 #solveContainer
