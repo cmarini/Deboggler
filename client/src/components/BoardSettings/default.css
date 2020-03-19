@@ -1,0 +1,58 @@
+.outset
+{
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1);
+}
+.inset
+{
+    border-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.5);
+}
+
+.arrowsContainer {
+    display: inline-block;
+    vertical-align: middle;
+}
+.arrowBox
+{
+    display: inline-block;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    /* border-color: lightblue rgb(112, 139, 148) rgb(112, 139, 148) lightblue; */
+    background: lightblue;
+    float: left;
+    clear: both;
+}
+.arrowBox.up
+{
+    border-radius: 5px 5px 0 0;
+}
+.arrowBox.down
+{
+    border-radius: 0 0 5px 5px;
+}
+
+.arrow
+{
+    display: inline-block;
+    height: 0px;
+    width: 0px;
+    border-color: black;
+    border-style: solid;
+    border-width: 6px 6px;
+    position: relative;
+    margin: 0px 4px;
+}
+.arrow.up
+{
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    bottom: 3px;
+}
+.arrow.down
+{
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    top: 3px;
+}

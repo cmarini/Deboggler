@@ -1,0 +1,11 @@
+#board, .react-boggle-board
+{
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 1em;
+        
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background: rgb(105, 105, 105);
+}

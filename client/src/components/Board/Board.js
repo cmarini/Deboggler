@@ -1,6 +1,8 @@
-'use strict';
+import React from 'react';
 
-import Die from './Die.js';
+import './default.css';
+
+import Die from '../Die/Die.js';
 
 export default class Board extends React.Component {
     constructor(props) {

@@ -1,4 +1,6 @@
-'use strict';
+import React from 'react';
+
+import './default.css';
 
 export default class Die extends React.PureComponent {
     constructor(props) {
@@ -11,10 +13,10 @@ export default class Die extends React.PureComponent {
 
     render() {
         let list;
-        if (this.props.sort.toLowerCase() == "length") {
+        if (this.props.sort.toLowerCase() === "length") {
             list = this.props.list.sort(function (x, y) {
                 var diff = y.length - x.length;
-                if (diff == 0) return (x < y ? (-1) : 1);
+                if (diff === 0) return (x < y ? (-1) : 1);
                 return diff;
             });
         } else {

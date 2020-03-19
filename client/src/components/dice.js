@@ -1,4 +1,4 @@
-var comboDice = {
+export let comboDice = {
     "Q": "Qu",
     "I": "In",
     "T": "Th",
@@ -7,12 +7,12 @@ var comboDice = {
     "A": "An",
 };
 
-comboCaps = Object.keys(comboDice).join("");
+export let comboCaps = Object.keys(comboDice).join("");
 // console.log("Combo Caps: " + comboCaps);
-const boardRegex = new RegExp("^[a-z" + comboCaps + "]*$");
-const dieRegex = new RegExp("[a-z" + comboCaps + "]", 'g');
+export const boardRegex = new RegExp("^[a-z" + comboCaps + "]*$");
+export const dieRegex = new RegExp("[a-z" + comboCaps + "]", 'g');
 
-function toComboDie (string) {
+export function toComboDie (string) {
 	let char = string.substr(0,1);
 	if (!char.match(dieRegex)) {
 		return "";
@@ -210,7 +210,7 @@ var diceVersions = [
 */
 ];
 
-var defaultDice = diceVersions[0];
+// var defaultDice = diceVersions[0];
 var diceLookup = [];
 
 /* Build Dice Lookup Table */

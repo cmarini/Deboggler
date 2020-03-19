@@ -1,6 +1,6 @@
-'use strict';
-
 import Dictionary from "./Dictionary.js";
+
+const axios = require('axios');
 
 export default class DictBSS extends Dictionary {
     constructor() {
@@ -23,24 +23,20 @@ export default class DictBSS extends Dictionary {
     dictGenerator(callback) {
         var thisClass = this;
         console.time("Build Dict: Binary Search String ");
-        $.ajax({
-            url: "php/buildDict.php",
-            dataType: "JSON",
-            cache: false,
-            success: function (result) {
-                // console.log(result);
-                thisClass.dict = result;
+        console.log("dictGenerator()");
+        axios.get('/dict')
+            .then(function (response) {
+                // console.log(response);
+                thisClass.dict = response.data;
                 thisClass._calcMaxCharLimit();
-                $('#debug').append("DONE DOWNLOADING DICTIONARY");
                 // hideLoadingTab();
                 console.timeEnd("Build Dict: Binary Search String ");
                 callback();
-            },
-        }).fail(function (e) {
-            console.log("DOWNLOAD FAILED");
-        }).then(function (data, status, xhr) {
-            // console.log(xhr.getAllResponseHeaders());
-        });
+            })
+            .catch(function (error) {
+                console.log("DICTIONARY DOWNLOAD FAILED");
+                console.log(error);
+            });
     }
 
     canBeWord(word) {

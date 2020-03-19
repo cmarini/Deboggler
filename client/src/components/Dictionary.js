@@ -1,5 +1,3 @@
-'use strict';
-
 export default class Dictionary {
     constructor(name) {
         this.name = name;

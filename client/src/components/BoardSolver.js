@@ -1,4 +1,4 @@
-import Dict from "./Dict-BSS.js";
+import {toComboDie} from './dice.js';
 
 let board;
 let boardSize = 0;
@@ -20,7 +20,7 @@ function getBoard(boardStr) {
 export function solve(_dict, size, boardStr) {
     dict = _dict;
     boardSize = size;
-    if (boardStr.length != (boardSize * boardSize)) {
+    if (boardStr.length !== (boardSize * boardSize)) {
         console.error(`Board string is the wrong length!\n${boardSize}x${boardSize} - ${boardStr}`);
         return null;
     }
@@ -29,14 +29,15 @@ export function solve(_dict, size, boardStr) {
     // console.log(board);
     console.log("-- SOLVING BOARD");
     console.time("-- SOLVING BOARD");
-    validWords = new Array();
+    validWords = [];
 
-    var memo = new Array();
-    for (var row = 0; row < boardSize; row++) {
-        memo[row] = new Array();
+    var memo = [];
+    var row, col;
+    for (row = 0; row < boardSize; row++) {
+        memo[row] = [];
     }
-    for (var row = 0; row < boardSize; row++) {
-        for (var col = 0; col < boardSize; col++) {
+    for (row = 0; row < boardSize; row++) {
+        for (col = 0; col < boardSize; col++) {
             solveRecurse("", row, col, memo);
         }
     }
@@ -69,7 +70,7 @@ function solveRecurse(word, row, col, memo) {
             for (var c = (-1); c < 2; c++) {
                 if (row + r >= 0 && row + r < boardSize &&
                     col + c >= 0 && col + c < boardSize &&
-                    !(r == 0 && c == 0)
+                    !(r === 0 && c === 0)
                 ) {
                     solveRecurse(word, row + r, col + c, memo);
                 }
@@ -86,6 +87,7 @@ function rc2i(r, c) {
     return (r * boardSize) + c;
 }
 
+// eslint-disable-next-line
 function i2rc(i) {
     i = i % (boardSize * boardSize);
     var r, c;
@@ -99,7 +101,7 @@ function removeDup (list)
     var prev = undefined;
     list.sort();
     return list.filter(function (x) {
-        if( x != prev ) {
+        if( x !== prev ) {
             prev = x;
             return true;
         }

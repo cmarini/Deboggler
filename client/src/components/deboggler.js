@@ -171,7 +171,7 @@ function drawBoard()
         var sel_start = this.selectionStart;
         var sel_end = this.selectionStart + 1;
         
-        if (e.type == "keydown") {
+        if (e.type === "keydown") {
             console.log(e.key, e);
             switch(e.keyCode) {
                 case 8: /* backspace */
@@ -214,9 +214,9 @@ function drawBoard()
             }
             // $(this)[0].setSelectionRange(sel_start, sel_end);
         }
-        if (e.type == "change") {
+        if (e.type === "change") {
         }
-        if (e.type == "input") {
+        if (e.type === "input") {
         }
         
         var string = $(this).val().substring(0,boardSize*boardSize);
@@ -388,7 +388,7 @@ function sortByLen(words)
     /* Sort by length, then alpha */
     return words.sort(function (x, y) {
         var diff = y.length - x.length;
-        if (diff == 0) {
+        if (diff === 0) {
             return (x<y?(-1):1);
         }
         return diff;
@@ -414,7 +414,7 @@ function fillWordList(container, words)
     listDiv.html("");
     console.timeEnd("fillWordList() > html(\"\")");
 
-    if (words.length == 0) {
+    if (words.length === 0) {
         $(container).addClass("empty");
         return;
     }
@@ -460,7 +460,7 @@ function solveRecurse(word, row, col, memo)
             for (var c=(-1); c<2; c++) {
                 if (row+r >= 0 && row+r < boardSize &&
                     col+c >= 0 && col+c < boardSize &&
-                    !(r == 0 && c == 0)
+                    !(r === 0 && c === 0)
                     ) 
                 {
                     solveRecurse(word, row+r, col+c, memo);

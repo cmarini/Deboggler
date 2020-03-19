@@ -1,4 +1,6 @@
-'use strict';
+import React from 'react';
+
+import './default.css';
 
 const BOARD_SIZE_MIN = 2;
 const BOARD_SIZE_MAX = 20;

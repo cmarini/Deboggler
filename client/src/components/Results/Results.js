@@ -1,6 +1,7 @@
-'use strict';
+import React from 'react';
 
-import WordList from './WordList.js';
+import './default.css';
+import WordList from '../WordList/WordList.js';
 
 export default class Results extends React.Component {
     constructor(props) {

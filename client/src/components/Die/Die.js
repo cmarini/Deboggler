@@ -1,6 +1,8 @@
-'use strict';
+import React from 'react';
 
-const dieRegex = new RegExp("[a-zA-Z]" + comboCaps + "]", 'g');
+import './default.css';
+
+import {toComboDie} from '../dice.js';
 
 export default class Die extends React.PureComponent {
     constructor(props) {
@@ -14,7 +16,6 @@ export default class Die extends React.PureComponent {
     validateDie(string, increment) {
         console.log(`validateDie: die=${this.props.idx} str='${string}' inc=${increment}`);
         this.setState({ value: string, valid: string.length > 0 ? true : false });
-        $(`#die_${this.props.idx + increment}`).focus();
     }
 
     handleChange(event) {
@@ -30,7 +31,7 @@ export default class Die extends React.PureComponent {
             next = -1;
         }
         let char = toComboDie(str);
-        if (char.length == 0) {
+        if (char.length === 0) {
             next = 0;
         }
 
@@ -38,7 +39,7 @@ export default class Die extends React.PureComponent {
     }
 
     handleKeyUp(event) {
-        if (event.key == "Backspace" && event.target.value == "") {
+        if (event.key === "Backspace" && event.target.value === "") {
             this.validateDie("", -1);
             this.setState((prevState, props) => {
                 return { valid: false }

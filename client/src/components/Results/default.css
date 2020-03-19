@@ -1,0 +1,13 @@
+
+#resultsWrap
+{
+    text-align: center;
+}
+
+#filterWrap
+{
+    margin: 1em 0;
+    padding-top: 1em;
+    border-top: 5px solid lightblue;
+    /* border-radius: 1em; */
+}
