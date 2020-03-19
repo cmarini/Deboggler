@@ -1,6 +1,6 @@
 {
-    "name": "deBoggler",
-    "short_name": "deBoggler",
+  "name": "deBoggler",
+  "short_name": "deBoggler",
   "icons": [
     {
       "src": "favicon.ico",
@@ -15,10 +15,10 @@
     {
       "src": "/android-chrome-256x256.png",
       "type": "image/png",
-      "sizes": "256x256",
+      "sizes": "256x256"
     }
   ],
-    "theme_color": "#fff3e2",
-    "background_color": "#fff3e2",
-    "display": "standalone"
+  "theme_color": "#fff3e2",
+  "background_color": "#fff3e2",
+  "display": "standalone"
 }
