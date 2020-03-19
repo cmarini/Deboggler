@@ -12,6 +12,9 @@ export default class Board extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.boardInput.focus();
+    }
 
     renderDie(row, col) {
         let idx = (row * this.props.size) + col;
@@ -23,8 +26,13 @@ export default class Board extends React.Component {
                 idx={idx}
                 key={`die_${idx}`}
                 id={`die_${idx}`}
+                callback={this.dieClickCallback}
             ></Die>
         )
+    }
+
+    dieClickCallback() {
+
     }
 
     render() {
@@ -48,6 +56,7 @@ export default class Board extends React.Component {
         return (
             <div className="react-board-wrap">
                 <input
+                    ref={(input) => { this.boardInput = input; }}
                     className="react-board-input"
                     value={this.props.value}
                     onChange={event => { this.props.updateCallback(event); }}
