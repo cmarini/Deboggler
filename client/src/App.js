@@ -17,6 +17,7 @@ class App extends React.Component {
       value: "",
       dictLoaded: false,
       results: [],
+      solved: false,
     };
 
     this.updateBoardSize = this.updateBoardSize.bind(this);
@@ -61,7 +62,8 @@ class App extends React.Component {
         this.setState((prevState, props) => {
           return {
             value: modified,
-            results: []
+            results: [],
+            solved: false,
           };
         });
       }
@@ -72,7 +74,10 @@ class App extends React.Component {
     console.log("SOLVE BUTTON");
     let res = Solver.solve(this.dict, this.state.boardSize, this.state.value);
     this.setState((prevState, props) => {
-      return { results: res };
+      return {
+        results: res,
+        solved: true
+      };
     })
     console.log("SOLVE BUTTON DONE");
   }
@@ -100,7 +105,7 @@ class App extends React.Component {
             </div>
           }
         </div>
-        {this.state.results.length > 0 &&
+        {this.state.solved &&
           <Results className={"col"} list={this.state.results} />
         }
         {this.state.dictLoaded ||
