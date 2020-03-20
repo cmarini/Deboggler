@@ -11,27 +11,27 @@ export default class Board extends React.Component {
             value: "",
             selected: 0,
         }
-        this.dieClickCallback = this.dieClickCallback.bind(this);
+        this.handleDieClick = this.handleDieClick.bind(this);
     }
 
     componentDidMount() {
         this.boardInput.focus();
     }
 
-    dieClickCallback(event) {
+    handleDieClick(event) {
         let idx = parseInt(event.target.getAttribute('idx'));
         this.boardInput.focus();
         this.setSelection(idx);
     }
-    handleKeyUp(event) {
+    handleSelectionChange(event) {
         let idx = event.target.selectionStart;
         this.setSelection(idx);
     }
     setSelection(idx) {
-        this.boardInput.setSelectionRange(idx,idx+1);
+        this.boardInput.setSelectionRange(idx, idx + 1);
         idx = this.boardInput.selectionStart;
         this.setState((prevState, props) => {
-          return { selected: idx };
+            return { selected: idx };
         })
     }
 
@@ -45,7 +45,7 @@ export default class Board extends React.Component {
                 idx={idx}
                 key={`die_${idx}`}
                 id={`die_${idx}`}
-                callback={this.dieClickCallback}
+                callback={this.handleDieClick}
                 selected={this.state.selected}
             ></Die>
         )
@@ -76,7 +76,8 @@ export default class Board extends React.Component {
                     className="react-board-input"
                     value={this.props.value}
                     onChange={event => { this.props.updateCallback(event); }}
-                    onKeyUp={event => { this.handleKeyUp(event); }}
+                    // onKeyUp={event => { this.handleKeyUp(event); }}
+                    onSelect={event => { this.handleSelectionChange(event); }}
                 />
                 {dieRows}
             </div>
