@@ -41,7 +41,10 @@ class App extends React.Component {
   updateBoardSize(newVal) {
     console.log(`updateBoardSize(${newVal})`);
     this.setState((prevState, props) => {
-      return { boardSize: newVal }
+      return {
+        boardSize: newVal,
+        value: this.state.value.substr(0, newVal * newVal)
+      }
     });
   }
 
