@@ -45,19 +45,18 @@ class App extends React.Component {
   }
 
   updateBoardStr(event) {
-    /* Convert all non-comboCaps to lowercase */
     let modified = event.target.value;
-    if (modified.length > (this.state.boardSize * this.state.boardSize)) {
-      modified = event.target.value.substr(0, this.state.boardSize * this.state.boardSize);
+    let maxStrLen = this.state.boardSize * this.state.boardSize;
+    if (modified.length > (maxStrLen)) {
+      modified = modified.substr(0, maxStrLen);
     }
+    /* Convert all non-comboCaps to lowercase */
     const re = new RegExp("[^" + comboCaps + "]", 'g');
     modified = modified.replace(re, (match) => {
       return match.toLowerCase();
     });
 
-    if (modified.length <= (this.state.boardSize * this.state.boardSize) &&
-      boardRegex.test(modified)
-    ) {
+    if (boardRegex.test(modified)) {
       if (modified !== this.state.value) {
         this.setState((prevState, props) => {
           return {
