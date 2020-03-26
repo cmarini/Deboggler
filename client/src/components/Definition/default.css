@@ -1,0 +1,54 @@
+.word {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.tooltip-header {
+    margin-bottom: .25em;
+    border-bottom: 1px solid black;
+    overflow:auto;
+    padding: .2em;
+}
+
+.headword {
+    font-size: 1.4em;
+    font-weight: bold;
+    float: left;
+    
+}
+
+.definition-link {
+    font-size: .8em;
+    float: right;
+}
+
+.definition-tooltip {
+    position: absolute;
+    width: 30em;
+    width: 30em;
+    max-height: 10em;
+    overflow-y: scroll;
+    background: #dcfffc;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    border: 1px solid black;
+    border-radius: 0em;
+    box-shadow: 0.2em 0.2em 0.4em 0px #5d5d5d;
+    text-align: left;
+    position:fixed;
+}
+
+.definition-tooltip .fl {
+    font-style: oblique;
+}
+
+.definition-tooltip ul {
+    padding-left: 1em;
+    list-style: none;
+}
+
+.definition-tooltip li {
+    padding-bottom: .5em;
+}

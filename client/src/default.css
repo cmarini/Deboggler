@@ -157,11 +157,6 @@ body
     position: relative;
     z-index: 50;
 }
-#boardInput /*, .react-board-input  */
-{
-    position: fixed;
-    top: -50px;
-}
     
 
 

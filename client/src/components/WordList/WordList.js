@@ -2,12 +2,15 @@ import React from 'react';
 
 import './default.css';
 
+import Definition from '../Definition/Definition.js';
+
 export default class Die extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             value: '',
             valid: false,
+            definition: null,
         };
     }
 
@@ -32,7 +35,7 @@ export default class Die extends React.PureComponent {
                     <ul className="resultsList">
                         {list.map((word, idx) =>
                             <li key={idx}>
-                                {word}
+                                <Definition word={word} />
                             </li>
                         )}
                     </ul>

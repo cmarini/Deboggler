@@ -34,6 +34,11 @@ export default class Board extends React.Component {
             return { selected: idx };
         })
     }
+    handleOnBlur(event) {
+        this.setState((prevState, props) => {
+            return { selected: null };
+        })
+    }
 
     renderDie(row, col) {
         let idx = (row * this.props.size) + col;
@@ -78,6 +83,7 @@ export default class Board extends React.Component {
                     onChange={event => { this.props.updateCallback(event); }}
                     // onKeyUp={event => { this.handleKeyUp(event); }}
                     onSelect={event => { this.handleSelectionChange(event); }}
+                    onBlur={event => { this.handleOnBlur(event); }}
                 />
                 {dieRows}
             </div>
