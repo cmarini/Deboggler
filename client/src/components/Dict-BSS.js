@@ -20,16 +20,19 @@ export default class DictBSS extends Dictionary {
         this.maxCharLimit = max;
     }
 
-    dictGenerator(callback) {
+    dictGenerator(callback, progressCallback) {
         var thisClass = this;
         console.time("Build Dict: Binary Search String ");
         console.log("dictGenerator()");
-        axios.get('/dict')
+        axios.get('/dict', {
+            onDownloadProgress: progressEvent => {
+                progressCallback(progressEvent);
+              },
+        })
             .then(function (response) {
                 // console.log(response);
                 thisClass.dict = response.data;
                 thisClass._calcMaxCharLimit();
-                // hideLoadingTab();
                 console.timeEnd("Build Dict: Binary Search String ");
                 callback();
             })
