@@ -111,12 +111,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Definition
-          word={"test"}
-          // data={dictdata}
-        >
-          {/* {"Test"} */}
-        </Definition>
         <BoardSettings size={this.state.boardSize}
           updateCallback={this.updateBoardSize}
         />

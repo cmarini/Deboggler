@@ -1,3 +1,26 @@
+.definition-tooltip {
+    position: absolute;
+    width: 30em;
+    max-height: 10em;
+    overflow-y: scroll;
+    background: #dcfffc;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    /* border: 1px solid black; */
+    border-radius: 0em;
+    box-shadow: 0em 0em 0.5em 0.3em #4e4e4e;
+    text-align: left;
+    position:fixed;
+}
+
+@media only screen and (max-width: 768px) {
+    .definition-tooltip {
+        width: 100%;
+    }
+}
+
+
 .word {
     margin: 0;
     padding: 0;
@@ -23,22 +46,6 @@
     float: right;
 }
 
-.definition-tooltip {
-    position: absolute;
-    width: 30em;
-    width: 30em;
-    max-height: 10em;
-    overflow-y: scroll;
-    background: #dcfffc;
-    top: 0;
-    right: 0;
-    z-index: 100;
-    border: 1px solid black;
-    border-radius: 0em;
-    box-shadow: 0.2em 0.2em 0.4em 0px #5d5d5d;
-    text-align: left;
-    position:fixed;
-}
 
 .definition-tooltip .fl {
     font-style: oblique;
