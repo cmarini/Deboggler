@@ -210,9 +210,9 @@ export const diceVersions = [
 ];
 
 /* Build Dice Lookup Table */
-const calculateDiceLookup = () => {
-	let lookup = {}
-	diceVersions.forEach((ver, i) => {
+const _buildDiceLookup = () => {
+	let lookup = {};
+	diceVersions.forEach((ver) => {
 		if (!lookup[ver.dice.length]) {
 			lookup[ver.dice.length] = [];
 		}
@@ -221,4 +221,4 @@ const calculateDiceLookup = () => {
 	return lookup;
 };
 
-export const diceLookup = calculateDiceLookup();
+export const diceLookup = _buildDiceLookup();
