@@ -1,16 +1,12 @@
 import React from 'react';
 import Board from './components/Board/Board.js';
 import BoardSettings from './components/BoardSettings/BoardSettings.js';
+import BoardGenerator from './components/BoardGenerator/BoardGenerator.js';
 import Results from './components/Results/Results.js';
 import * as Solver from './components/BoardSolver.js';
 import Dict from './components/Dict-BSS.js';
 import { comboCaps, boardRegex } from './components/dice.js';
-// import Dictionary from './components/Dictionary.js';
-import Definition from './components/Definition/Definition.js';
 import LoadingTab from './components/LoadingTab/LoadingTab.js';
-
-// const got = require('got');
-// import Got from 'got';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,6 +20,7 @@ class App extends React.Component {
     };
 
     this.updateBoardSize = this.updateBoardSize.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.updateBoardStr = this.updateBoardStr.bind(this);
     this.handleDictDone = this.handleDictDone.bind(this);
     this.handleDictDownloading = this.handleDictDownloading.bind(this);
@@ -61,23 +58,26 @@ class App extends React.Component {
     });
   }
 
-  updateBoardStr(event) {
-    let modified = event.target.value;
+  handleInputChange(event) {
+    this.updateBoardStr(event.target.value);
+  }
+
+  updateBoardStr(str) {
     let maxStrLen = this.state.boardSize * this.state.boardSize;
-    if (modified.length > (maxStrLen)) {
-      modified = modified.substr(0, maxStrLen);
+    if (str.length > (maxStrLen)) {
+      str = str.substr(0, maxStrLen);
     }
     /* Convert all non-comboCaps to lowercase */
     const re = new RegExp("[^" + comboCaps + "]", 'g');
-    modified = modified.replace(re, (match) => {
+    str = str.replace(re, (match) => {
       return match.toLowerCase();
     });
 
-    if (boardRegex.test(modified)) {
-      if (modified !== this.state.value) {
+    if (boardRegex.test(str)) {
+      if (str !== this.state.value) {
         this.setState((prevState, props) => {
           return {
-            value: modified,
+            value: str,
             results: [],
             solved: false,
           };
@@ -114,10 +114,13 @@ class App extends React.Component {
         <BoardSettings size={this.state.boardSize}
           updateCallback={this.updateBoardSize}
         />
+        <BoardGenerator size={this.state.boardSize}
+        updateCallback={this.updateBoardStr}
+        />
         <div className={"col"}>
           <div className={"react-boggle-board"}>
             <Board size={this.state.boardSize}
-              updateCallback={this.updateBoardStr}
+              updateCallback={this.handleInputChange}
               value={this.state.value}
             />
           </div>
