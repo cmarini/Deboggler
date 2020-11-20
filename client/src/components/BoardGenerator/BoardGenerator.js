@@ -8,6 +8,7 @@ export default class BoardGenerator extends React.Component {
         super(props);
         this.state = {
             dieSetSelection: 0,
+            currentSize: this.props.size,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,24 +22,30 @@ export default class BoardGenerator extends React.Component {
 
     handleClick(event) {
         let str = '';
-        let strlen = this.props.size ** 2;
-        if (diceLookup[strlen]) {
+        let dieCount = this.props.size ** 2;
+        console.log(`Die Selection: ${this.state.dieSetSelection}`);
+        console.log(`Die Count: ${dieCount}`);
+        console.log(diceLookup);
+        if (diceLookup[dieCount]) {
             /* Generate board from selected die set */
-            let dice = diceLookup[strlen][this.state.dieSetSelection].dice;
-            for (let i = dice.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * i)
-                const temp = dice[i]
-                dice[i] = dice[j]
-                dice[j] = temp
+            let selection = this.state.dieSetSelection;
+            let dice = diceLookup[dieCount][selection].dice;
+            /* Create a randomized order of dice */
+            let dieSelector = [...Array(dieCount).keys()];
+            for (let i = dieSelector.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * i);
+                const temp = dieSelector[i];
+                dieSelector[i] = dieSelector[j];
+                dieSelector[j] = temp;
             }
-            for (let i = 0; i < strlen; i++) {
-                str += dice[i].substr((Math.floor(Math.random() * dice[i].length)), 1);
+            for (let i = 0; i < dieCount; i++) {
+                str += dice[dieSelector[i]].substr((Math.floor(Math.random() * dice[dieSelector[i]].length)), 1);
             }
             console.log(dice);
         } else {
             /* Generate random board string */
-            console.log(`handleClick: Randomize ${strlen}`);
-            for (let i = 0; i < strlen; i++) {
+            console.log(`handleClick: Randomize ${dieCount}`);
+            for (let i = 0; i < dieCount; i++) {
                 str += (Math.floor(Math.random() * 26 + 10)).toString(36);
             }
         }
@@ -46,7 +53,16 @@ export default class BoardGenerator extends React.Component {
         this.props.updateCallback(str);
     }
 
-
+    componentDidUpdate(prevProps, prevState) {
+        // If the board changed size, reset the dieSetSelection
+        if (this.props.size !== prevProps.size) {
+            console.log(`PROPS CHANGE: ${prevProps.size} -> ${this.props.size}`);
+            this.setState({
+                currentSize: this.props.size,
+                dieSetSelection: 0
+            });
+        }
+    }
 
     render() {
         let dice = null;
