@@ -15,6 +15,7 @@
 
 # misc
 .vscode/
+.vs/
 .DS_Store
 .env
 .env.local
